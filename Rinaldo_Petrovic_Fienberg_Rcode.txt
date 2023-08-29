@@ -1,0 +1,612 @@
+The small file provide the code needed to carry out the computations for the paper "Maximum Likelihood Estimation in Network Models" by S. Petrovic and A. Rinaldo.
+
+
+
+The file beta.r contains the following R functions:
+
+
+- make.design.A: creates the design matrix A for the beta model.
+- make.design.C: creates  the matrix of equation (11), whose columns span the marginal cone.
+- compute.points: compute all possible sufficient statistics, i.e. degree sequences.
+- write.polymake: writes the columns of a matrix into a file to be read into polymake.
+- make.design.Rasch.A: creates the design matrix A for the Rasch model with p subjects and q items.
+- make.design.Rasch.C: creates the matrix of equation (11), whose columns span the marginal cone for the Rasch model.
+- compute.points.Rasch: computes all possible sufficient statistics for the Rashc model, i.e. bipartite degree sequences.
+- compute.mle.Rasch: computes the MLE of the Rasch model, using Newton Raphson.
+- make.design.cone.BT: creates a matrix whose columns span the marginal cone for the Bradley-Terry model
+- compute.mle.BT: computes the MLE of the Bradely-Terry model, using Newton Raphson.
+- make.design.cone.p1: creates a matrix whose columns span the marginal cone for each one of the three specifications of the p1 model
+- p1.ips: iterative proportional scaling algorithm for fitting the p1 model with rho = 0
+
+In order to compute the facial and co-facial sets using the methods described in Section 6, proceed as follows. For instance to compute the co-facial sets for the case n=4, open  R, source the filler beta.r and then type
+
+write.polymake(make.design.C(4), filename = "polymake.in")
+
+This will create a file called polymake.in in the current R working directory, containing the vectors spanning the marginal cone, which correspond to the columns of the matrix in equation (11). 
+
+The next step is to run polymake using polymake.in as the input file. Note that we used an old version of polymake: the syntax for the "new generation" of polymake will be different.
+
+Open a terminal window and type
+
+polymake polymake.in [options] > polymake.out
+
+where polymake.out is the file storing the output of the calculations carried out by polymake and [options] specify the kind of output polymake will produce 
+For instance, to get the dimension of the marginal cone and its f-vector, type (WARNING: computing the f-vector is computationally expensive)
+
+polymake polymake.in DIM F_VECTOR > polymake.out
+
+To get the facial sets, instead type
+
+polymake polymake.in VERTICES_IN_FACETS > polymake.out
+
+The output, store in polymake.out, will be a list of numbers enclosed in curly brackets. Each line contains the indexes of the columns of the matrix spanning the normal cone comprising a facial set associated to one facet of the marginal cone (note that the indexing starts with 0 and not 1). For instance, when n=4, the facial set depicted in Table 4 is coded as 
+
+{1 2 3 4 5 6 7 8 9 10},
+
+which means that the coefficients corresponding to columns 1 and 12 are zeros. These columns corresponds to the counts (1,2) and (4,3), respectively. Thus, the co-facial set is such that the table counts (1,2) and (4,3) are both zeros, which means that the entry (2,1) must be N_{1,2} and the entry (3,4) must be N_{3,4}. 
+
+For the Rash model, note that the columns of the marginal cone are indexed in pairs as \{ ((i,j),(j,i)), i \in I and j \in J \}, with a zero for the coordinate (i,j) signifies no edge between i and j, and a zero for the coordinate (j,i) signify an edge between i and j. For instance, to compute the facial sets for the Rasch model with bipartitions of sizes 5 and 4, type, in R,
+
+write.polymake(make.design.Rasch.C(5,4), filename = "polymake.in")
+
+and then the same polymake command.
+
+###############################################################
+###############################################################
+###############################################################
+
+
+# Create the design matrix A
+# Inout: n, the number of objects or nodes
+# Output: the n x n(n-1)/2 design matrix A
+make.design.A = function(n){
+	ncols = n*(n-1)/2
+	out = array(0,dim=c(n,ncols))
+	for(i in 1:n){
+		temp = 0
+		for(j in 1:min(i,n-1)){
+			if(j<i){				
+				out[i,(temp+ (i-j))] = 1
+							temp = temp + (n - j)
+			}else
+			{
+				out[i,(temp+1):(temp+n-i)]=1
+			}			
+		}
+	}
+	out
+}
+
+
+
+
+
+# Create the matrix of equation (10), whose columns span the marginal cone.
+# Inout: n, the number of objects or nodes
+# Output: the matrix equation (10), of dimension (n + {n \choose 2}) x n(n-1), whose columns span the marginal cone
+make.design.C = function(n){
+	ncols = n*(n-1)
+	out = array(0,dim=c(n,ncols))
+	for(i in 1:n){
+		temp = 0
+		for(j in 1:min(i,n-1)){
+			if(j<i){				
+				out[i,2*(temp+ (i-j))-1] = 1
+                                #out[i,2*(temp+ (i-j))] = -1
+                                temp = temp + (n - j)
+			}else
+			{
+				out[i,c(2*((temp+1):(temp+n-i)) - 1)]=1
+                               # out[i,c(2*((temp+1):(temp+n-i)) )]=-1
+			}			
+		}
+	}
+        nedge = n*(n-1)/2
+        tempout = matrix(c(1,1) %o% diag(nedge),nrow=nedge,ncol=2*nedge,byrow = TRUE)
+	out = rbind(tempout, out)
+        out
+}
+
+
+
+
+# Compute all possible sufficient statistics, i.e. degree sequences. 
+# Input: the design matrix A, obtained using the function make.design.A 
+# Output: a matrix with n rows and as many columns as the number of distinct degree sequences 
+# for undirected graphs on n = nrow(A) nodes
+# WARNING: the computational complexity increases exponentially in n 
+compute.points = function(A){	
+  n = ncol(A)
+  out = array(0,dim=c(nrow(A),2^n))
+  for(i in 0:(2^n-1)){
+    out[,i+1] = A %*% mybinary(i,n)    
+  }
+  # use unique: the function eliminates redundant rows
+  out = t(unique(t(out)))
+  out
+}
+
+
+# Auxiliary functions used by compute.points and compute.points.Rasch 
+mybinary=function(x,dim){
+  if (x == 0){
+    pos = 1
+  }
+  else {
+    pos = floor(log(x, 2)) + 1
+  }
+  if (!missing(dim)) {
+    if (pos <= dim) {
+      pos = dim
+    }
+  }
+  bin = rep(0, pos)
+  for (i in pos:1) {
+    bin[i] = floor(x/2^(i - 1))
+    x = x - ((2^(i - 1)) * bin[i])
+  }
+  rev(bin)
+}
+
+
+
+
+# Write the columns of a matrix into a file to be read into polymake
+# Input: a matrix or data frame x, whose columns are the vectors spanning a polytope or a cone
+# If the option bounded is TRUE, it will add a row of ones to x
+# Output: a file with name specified with the option filename, to be used directly with polymake
+write.polymake = function(x,filename="for_polymake",bounded=FALSE){
+  if(bounded){
+  		ncols = ncol(x)
+  		x = rbind(rep(1,ncols),x)
+  	}
+  out = t(x)
+  conne= file(filename,"w")
+  cat("POINTS","\n",file=conne) 
+  write.table(out,file=conne,append=TRUE,quote=FALSE,row.names= FALSE, col.names = FALSE)
+  close(conne)
+}
+
+
+
+
+
+# Create the design matrix A for the Rasch model with p subjects and q items
+# Inout: p and q.
+# Output: the (p+q) x pq design matrix A
+make.design.Rasch.A = function(p,q){
+	out = array(0,dim=c((p+q),(p*q)))
+	for(i in 1:p){
+		tempi = (i-1)*q+1
+		out[i,tempi:(tempi+q-1)] = 1				
+	}
+	for(j in 1:q){
+		tempj = ((1:p)-1)*q + j
+		out[j+p,tempj] = 1				
+	}
+	out
+}	
+
+
+
+# Create the matrix of equation (10), whose columns span the marginal cone for the Rasch model.
+# Inout: p,q
+# Output: the matrix equation (10), of dimension (pq + p + q) x 2pq, whose columns span the marginal cone
+make.design.Rasch.C = function(p,q){
+	pq = p*q
+	A = make.design.Rasch.A(p,q)
+	out = array(0,dim=c((p+q),(2*pq)))
+	for(i in 1:nrow(A)){
+			out[i,] = expand(A[i,])
+		}	
+	 tempout = matrix(c(1,1) %o% diag(pq),nrow=pq,ncol=2*pq,byrow = TRUE)
+	out = rbind(tempout, out)
+     out
+
+}	
+
+
+# Auxiliary function used in make.design.Rasch.D 
+expand = function(x){
+	# x binary vector of length n
+	# output is binary vector of length 2n
+	# with 1 in coordinate (2i-1) iif the original vector x has 1 in coordinate i
+	n = length(x)
+	out = numeric(2*n)
+	out[2*(which(x>0)) - 1] = 1
+	out
+	}
+
+
+
+
+
+# Compute all possible sufficient statistics for the Rashc model, i.e. bipartite degree sequences.
+# Input: the design matrix A, obtained using the function make.design.A 
+# Output: a matrix with p+q rows and as many columns as the number of distinct bipartite degree sequences 
+# for undirected graphs on n = p+q = nrow(A) nodes
+# WARNING: the computational complexity increases exponentially in n 
+compute.points.Rasch = function(A){
+	# compute all points in the support, starting from the design matrix A
+  n = ncol(A)
+  out = array(0,dim=c(nrow(A),2^n))
+  for(i in 0:(2^n-1)){
+    out[,i+1] = A %*% mybinary(i,n)    
+  }
+  # use unique: the function eliminates redundant rows
+  out = t(unique(t(out)))
+  out
+}
+
+
+
+
+
+
+###############################################################
+###############################################################
+
+# Functions to compute the MLE of the beta model, based on the Newton-Raphson
+# Inputs: 
+# - table.data:  nxn table of pairwise comparisons, with zero diagonal elements
+# - N.sample:  nxn symmetric matrix with zero diagonal entries in which the (i,j) element with i<j is N_{i,j}
+# Output: a list containig two fields: 
+# -- prob: MLEs of the probability parameters, represented as a nxn matrix with zero diagonals whose (i,j)-entry is the estimated probability that object i preferred to object k
+# -- theta: the MLE of the natural parameters
+
+compute.mle.beta = function(table.data,N.sample,...){
+# convert table.data into a vector of size {n \choose 2}
+# by extracting the upper triangular elements, ordered lexicographically as described in the paper 
+data.vector = t(table.data)[lower.tri(t(table.data))]
+#  x is the vector of sufficient statistics
+x = make.design.A(ncol(table.data)) %*% data.vector
+mintheta = nlminb(start = rep(0,length(x)), objective = nloglik, gradient = nloglik.gr , hessian = nloglik.hess, d = x, N.sample = N.sample,…)
+proba.outer = outer(exp(mintheta$par),exp(mintheta$par))
+proba = proba.outer/(1 + proba.outer)
+diag(proba) = 0
+proba[lower.tri(proba)] = 1 - proba[lower.tri(proba)]
+out = list()
+out$prob = proba
+out$theta = mintheta$par
+out
+}
+
+
+
+
+# Auxiliary functions used by compute.mle.beta
+nloglik = function(theta,d,N.sample){
+  etheta = outer(exp(theta),exp(theta)) 
+  psi = log(1+etheta[upper.tri(etheta)]) * N.sample[upper.tri(N.sample)]
+  out = sum(d*theta) - sum( psi )
+  return(-out)
+}
+
+
+nloglik.gr = function(theta,d,N.sample){
+  out = numeric(length(theta))
+  etheta = outer(exp(theta),exp(theta))
+  etheta = etheta/(1+etheta) * N.sample
+  diag(etheta) = 0
+  out = d - rowSums(etheta)
+  return(-out)
+}
+
+
+nloglik.hess = function(theta,d,N.sample){
+  p = length(theta)
+  out = array(0,dim = c(p,p))
+  etheta = outer(exp(theta),exp(theta))
+  etheta = etheta/(1+etheta)^2 * N.sample
+  out = - etheta
+  diag(etheta) = 0
+  diag(out) =  - rowSums(etheta)
+  return(-out)
+}
+
+
+
+
+
+###############################################################
+###############################################################
+
+# Functions to compute the MLE of the Rasch model with bipartition of size p and q, based on the Newton-Raphson
+# Input: 
+# - x:   pxq 0-1 matrix
+# Output: a list containing two fields: 
+# -- prob: MLEs of the probability parameters, represented as a pxq matrix 
+# -- theta: the MLE of the natural parameters
+compute.mle.Rasch = function(x,...){
+	p = nrow(x)
+	q = ncol(x)
+	d = c(rowSums(x), colSums(x))
+mintheta = nlminb(start = rep(0,(p+q)), objective = nloglik, gradient = nloglik.gr , hessian = nloglik.hess, d = d, p=p, q=q,...)
+proba.outer = outer(exp(mintheta$par[1:p]),exp(mintheta$par[(p+1):(q+p)]))
+proba = proba.outer/(1 + proba.outer)
+out = list()
+out$prob = proba
+out$theta = mintheta$par
+out
+}
+
+
+
+
+nloglik = function(theta,d,p,q){
+	etheta = outer(exp(theta[1:p]), exp(theta[(p+1):(q+p)]))
+	psi = sum(sum(log(1 + etheta)))
+	out = sum(d*theta) - psi
+  # return -out because I am minimizing the negative log-lik
+  return(-out)
+}
+
+
+# Auxiliary functions used by compute.mle.Rasch 
+nloglik.gr = function(theta,d,p,q){
+  out = numeric(length(theta))
+  etheta = outer(exp(theta[1:p]), exp(theta[(p+1):(q+p)]))
+  etheta = etheta/(1+etheta)
+  out[1:p] = d[1:p] - rowSums(etheta)
+  out[(p+1):(p+q)] = d[(p+1):(p+q)] - colSums(etheta)
+  return(-out)
+}
+
+
+nloglik.hess = function(theta,d,p,q){
+  pq = p+q
+  out = array(0,dim = c(pq,pq))
+  etheta = outer(exp(theta[1:p]), exp(theta[(p+1):(q+p)]))
+  etheta = etheta/(1+etheta)^2 
+  out[1:p,(p+1):(p+q)] = - etheta
+  out[(p+1):(p+q),1:p] = - t(etheta)
+  diag(out)[1:p] = - colSums(etheta)
+  diag(out)[(p+1):(q+p)] = - rowSums(etheta)
+  # return -out because I am minimizing the negative log-lik
+  return(-out)
+}
+
+
+
+###############################################################
+###############################################################
+
+# Creates a matrix whose columns span the marginal cone for the Bradley-Terry model.
+# Input: 
+# - n:   the number of objects to compare
+# Output: a matrix of dimension {n \choose 2} + n, the first {n \choose 2} rows corresponding to the multinomial constraints
+#         and the other n rows to the rows sums (the sufficient statistics).
+make.design.cone.BT = function(n){
+   	n.edges = n * (n - 1) /2
+	out = array(0,dim=c(n,n*(n-1)))
+  # filling in alpha's and beta's
+  # list of pairs edges
+	  edges.list = array(0,dim=c(n.edges,2))
+	  k = 1
+  	for(i in 1:(n-1)){
+    		for(j in (i+1):n){
+     		 edges.list[k,] = c(i,j)
+      		k=k+1
+    		}
+  	}
+  # alpha's and beta's
+  	for(i in 1 :n){
+    		for(e in 1:n.edges){
+    			if(sum(i == edges.list[e,]) > 0){
+    				if(i == edges.list[e,1]){
+    					out[i,((e-1)*2+1):((e-1)*2+2)] = c(1,0)    					
+    				}else{
+    					out[i,((e-1)*2+1):((e-1)*2+2)] = c(0,1)
+    					
+    				}
+    			}
+    		}
+    	}   	 
+    	 tempout = matrix(c(1,1) %o% diag(n.edges),nrow=n.edges,ncol=2*n.edges,byrow = TRUE)
+  out = rbind(tempout,out)
+  out
+}
+
+
+
+
+###############################################################
+###############################################################
+# Creates a matrix whose columns span the marginal cone for the p1 model.
+# Input: 
+# - n.nodes:   the number of nodes
+# - rho: specifies the which version of the p1
+#         rho = 1 means rho constant
+#         rho = 2 means edge-dependen rhos, i.e. rho_{i,j} = rho + rho_i + rho_j
+#         otherwise rho is set to 0
+# Output: a matrix of dimension {n \choose 2} + 3n + 2 if rho = 2, 
+#         of dimension {n \choose 2} + 2n + 2 if rho =2
+#         and of dimension  {n \choose 2} + 2n + 1 if rho = 0
+#         the columns of these matrices span the corresponding marginal cone
+
+
+make.design.cone.p1 = function(n.nodes,  rho = 0, filename=""){
+  # rho = 1 means rho constant
+  # rho = 2 means edge-dependen rhos, i.e. rho_{i,j} = rho + rho_i + rho_j
+  # otherwise rho is set to 0
+  n.edges = n.nodes * (n.nodes - 1) /2
+
+  # computing the size of the design matrix
+  if(rho==1){
+    out = array(0,dim=c(n.edges + 2 * n.nodes + 2, 4 * n.edges))
+  }else if(rho==2){
+     out = array(0,dim=c(n.edges + 2 * n.nodes + 2 + n.nodes, 4 * n.edges))
+  }else{
+    out = array(0,dim=c(n.edges + 2 * n.nodes + 1, 4 * n.edges))
+  }
+  
+  # filling in lambda_{i,j}
+  for(i in 1:n.edges){
+    temp = numeric(n.edges)
+    temp[i]=1
+    out[i,] = rep(temp, each = 4)
+  }
+  # filling in theta
+  out[n.edges+1,] = rep(c(0,1,1,2),n.edges)
+  
+  # filling in alpha's and beta's
+  # list of pairs edges
+  edges.list = array(0,dim=c(n.edges,2))
+  k = 1
+  for(i in 1:(n.nodes-1)){
+    for(j in (i+1):n.nodes){
+      edges.list[k,] = c(i,j)
+      k=k+1
+    }
+  }
+  # alpha's and beta's
+  for(i in 1 :n.nodes){
+    for(e in 1:n.edges){
+      if(sum(as.numeric(i == edges.list[e,])) == 0){
+        out[(n.edges+ 1 + i),((e-1)*4 + 1):((e-1)*4 + 4)] = c(0,0,0,0)
+        out[(n.edges+1 + n.nodes + i),((e-1)*4 + 1):((e-1)*4 + 4)] =c(0,0,0,0)     
+      }else if(i == edges.list[e,1]){
+        out[(n.edges+ 1 + i),((e-1)*4 + 1):((e-1)*4 + 4)] = c(0,1,0,1)
+        out[(n.edges+1 + n.nodes + i),((e-1)*4 + 1):((e-1)*4 + 4)] =c(0,0,1,1)  
+      }else{
+        out[(n.edges+ 1 + i),((e-1)*4 + 1):((e-1)*4 + 4)] = c(0,0,1,1)
+        out[(n.edges+1 + n.nodes + i),((e-1)*4 + 1):((e-1)*4 + 4)] =c(0,1,0,1)  
+      }
+    }
+  }
+
+  # filling in the rhos
+  if(rho>=1){
+    # rho constant
+    out[n.edges + 2 * n.nodes + 2,] = rep(c(0,0,0,1),n.edges)
+  }
+  if(rho==2){
+    # edge-dependent rhos
+    for(i in 1:n.nodes){
+      temp=numeric()
+      for(e in 1:n.edges){
+        if(sum(as.numeric(i == edges.list[e,])) == 1){
+          temp = c(temp,c(0,0,0,1))
+        }else{
+          temp = c(temp,rep(0,4))
+        }
+      }
+      out[n.edges + 2 * n.nodes + 2 + i,] = temp# rep(c(0,0,0,1),n.edges)
+    }
+  }
+  
+  out
+}
+
+
+
+###############################################################
+###############################################################
+# Implements the IPS algorithm for fitting the probability parameters of the p1 model with rho=0
+# Input: 
+# - gr:   row sums
+# - gc: columns sums
+# - maxiter: maximal number of iterations        rho = 1 means rho constant
+# - tol: tolerance for declaring convergence (based on the ell-infinity norm of the difference between observed and fitted row and columns sums)
+# Output:
+# - fit: 2 n (n-1) vector of estimated probabilities (4 for each dyad)
+# - p and q: n x n matrix containing the estimated probabilities of X_{i,j} = 0 or X_{i,j} = 0, respectively (see Holland and Leihartdt (1981), page 40).
+
+p1.ips = function(gr,gc,maxiter = 3000,tol=1e-6){
+  # NOTE: this algorithm only works if rho=0
+  # gr and gc are the row and column sums of the observed network
+  n = length(gr)
+  p = array(0.5,dim=c(n,n))
+  q = array(0.5,dim=c(n,n))
+  
+
+  # if gr or gc have entries equal to 0 or n-1, then the corresponding rows and columns of p(q) have to be set equal to 0(1) or 1(0), respectively
+  for(i in 1:n){
+    if((gr[i]%%(n-1))==0){
+      p[i,]= 1 - as.numeric(gr[i]==0)
+      q[i,]= as.numeric(gr[i]==0)
+    }
+    if((gc[i]%%(n-1))==0){
+      p[,i]=  1 - as.numeric(gc[i]==0)
+      q[,i]= as.numeric(gc[i]==0)
+    }
+  }
+
+  diag(p) = diag(q)= 0
+  
+  converge = 0
+  pi = apply(p,1,sum)
+  pj = apply(p,2,sum)
+  iter = 1
+  
+  while(!converge){
+    
+
+    if(iter > maxiter){
+      #print("Reached max number of iterations!")
+      break
+    }
+# row step
+    pi = apply(p,1,sum)
+    qi = apply(q,1,sum)
+    for(i in 1:n){
+      if(gr[i] > 0)
+        {           
+          p[i,] = p[i,] * (gr[i]/pi[i])
+        }
+      if(n-1-gr[i] > 0)
+        {
+          q[i,] = q[i,] * (n-1-gr[i])/qi[i]
+        }
+    }
+  
+  
+# column step
+    pj = apply(p,2,sum)
+    qj = apply(q,2,sum)
+    for(j in 1:n){
+      if(gc[j] > 0)
+        {
+          p[,j] = p[,j] * (gc[j]/pj[j])
+        }
+      if(n-1-gc[j] > 0)
+        {
+          q[,j] = q[,j] * (n-1-gc[j])/qj[j]
+        }
+    }
+  
+# normalizing step
+    for(i in 1:n){
+      for(j in 1:n){
+        if(i!=j){
+          R = p[i,j] + q[i,j]
+          p[i,j] = p[i,j]/R
+          q[i,j] = q[i,j]/R
+        }
+      }
+    }
+
+    pi = apply(p,1,sum)
+    pj = apply(p,2,sum)
+    iter = iter + 1
+    converge = ( max(max(abs(pi - gr)),max(abs(pj - gc))) < tol )
+    
+  }
+  
+  fit = numeric(2 * n*(n-1))
+  k=1
+  for(i in 1:(n-1)){
+    for(j in (i+1):n){
+      fit[k:(k+3)] = c( q[i,j] * q[j,i], p[i,j]*q[j,i], q[i,j]*p[j,i],p[i,j]*p[j,i]  )
+      k = k+4
+    }
+  }
+  fit
+  out=list()
+  out[[1]] = fit
+  out[[2]] = p
+  out[[3]] = q
+  out
+}
+
+
