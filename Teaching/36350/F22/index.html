@@ -1,0 +1,524 @@
+<html>
+  <head>
+    <title>36-350: Statistical Computing</title>
+    <link rel="StyleSheet" href="style.css" type="text/css" media="screen" />
+  </head>
+
+  <body>
+    <a name="top"></a>
+    <h1>36-350: Statistical Computing - Fall 2022</h1>
+
+    <table style="width: 100%">
+      <tr>
+        <td>
+          <h2>Stat 36-350</h2>
+
+          <b>Instructor:</b>
+          <a href="https://www.stat.cmu.edu/~arinaldo/">Alessandro (Ale) Rinaldo</a>
+          (arinaldo at cmu dot edu)<br />
+          <br />
+          <b>Head TA:</b>
+          [SSH] <a href="https://www.shamindras.com">Shamindra Shrotriya</a> 
+          (shamindra at cmu dot edu)<br />
+<br />
+          <i
+            ><b>Important note: please direct emails on all course related matters
+            to the Head TA, not the Instructor. The subject line of all emails
+            should begin with "[36-350]".</b></i
+          ><br />
+          <br />
+          <b>Grad TAs:</b> (all emails are at andrew dot cmu dot edu)<br />
+          [JP] James Pak (jpak1) <br /> 
+          [XS] Xiaochen Sun (xsun3) <br />
+         <!--  [MG] Maxine Graves (mgraves) <br />
+          [SM] Stefano Martinez (gmolinam) <br />
+          [KY] Kevin Yang (kevinyan) -->
+          <br />
+          <b>Undergrad TAs:</b> (all emails are at andrew dot cmu dot edu)<br />
+          [LC] Linpeng Chen (linpeng) <br /> 
+          [XG] Xiaofeng Gan (xgan) <br /> 
+          [AG] Aaron Gong (jingyaog)  <br />
+          [LL] Li Li (lili2) <br />
+          [PM] Parth Maheshwari (parthmah) <br />
+          [SS] Shannon Sun (sysun) <br />
+          [ST] Steven Tang (sjtang)
+        <!--   [LC] Linpeng Chen (linpengc) <br />
+          [MC] Michael Chen (mlchen) <br />
+          [JF] Jessica Fan (jlfan)<br />
+          [SH] Sean Hough (smhough) <br />
+          [PM] Parth Maheshwari (parthmah) <br />
+          [AZ] Alan Zhu (yixuanz2) -->
+          <br /><br />
+          <b>Class times:</b><br />
+          <u>Tuesdays and Thursdays, 10:10-11:30am,
+          POS 152.</u> <br /> Lectures will take place in-person during the first half of Tuesday's class period. The labs (second half of the class on Tuesday and the entire class on Thursday) will be remote on
+          <a href="https://cmu.zoom.us/j/91866966956">Zoom</a> (see <a href="https://canvas.cmu.edu/courses/29940
+">Canvas</a>
+          for the passcode)<br />
+          <br />
+          <b>Office hours:</b><br />
+          All office hours will be remote on
+          <a href="https://cmu.zoom.us/j/95366351333">Zoom</a>
+          (see <a href="https://canvas.cmu.edu/courses/29940
+">Canvas</a> for the passcode).<br />
+        <u>Tuesday:</u> 9:00am-10:00am [SSH] and Tuesday, 3:00pm-5:00pm [LC] <br />
+<u>Wednesday:</u> 2:00pm-3:00pm [PM/SS]<br />
+<u>Thursday:</u> 2:00pm-7:00pm [LC/AG/LL/PM/SS/JP/XS]<br />
+<u>Friday:</u> 1:00pm-6:00pm [XG/AG/LL/PM/SS/JP/XS/ST]
+
+         <!--  <u>Tuesday</u>: 2:00-3:00pm [MC]
+          <br />
+          <u>Wednesday</u>: 3:00-5:00pm [PM/SH]
+          <br />
+          <u>Thursday</u>: 9:00-10:00am [SS]
+          <br />
+          <u>Thursday</u>: 2:00-6:30pm [LC/MC/JF/AZ/MG/SM/KY]
+          <br />
+          <u>Friday</u>: 2:00-6:30pm [LC/MC/JF/SH/PM/AZ/MG/SM/KY]-->
+          <br />
+          <br />
+        <!--  <u>Note:</u> All office hours are remote on
+          <a href="https://cmu.zoom.us/j/95366351333">Zoom</a>
+          (see <a href="https://canvas.cmu.edu/courses/29940
+">Canvas</a> for the passcode)<br />
+          <br />-->
+          <b>Syllabus:</b>
+          <a href="syllabus.html">36-350: Statistical computing, Fall 2022</a>
+          <br />
+            <br />
+          <b>Announcements:</b> <a href="https://piazza.com/class/l6c0h4f0do03tv/">Piazza</a>  group (access also via 
+          <a href="https://canvas.cmu.edu/courses/29940
+">Canvas</a>). Make sure to check pinned posts for updates regularly.
+          <br />
+            <br />
+          <b>Labs:</b> Submit completed lab work using <a href="hhttps://www.gradescope.com/courses/409136">Gradescope</a>  (access also via 
+          <a href="https://canvas.cmu.edu/courses/29940
+">Canvas</a>). The solutions will be posted on <a href="https://canvas.cmu.edu/courses/29940
+">Canvas</a> (See Files > solutions > labs)
+<br />
+            <br />
+<b>Software:</b> the course will be based on the <a href="https://www.r-project.org
+">R language</a>, a free software for statistical computing and graphics. We will use <a href="https://www.rstudio.com">R Studio</a>, an integrated development environment for R and Python 
+          <!-- <a href="https://canvas.cmu.edu">Canvas</a>.-->
+        </td>
+        <td style="width: 50%; text-align: center; padding-left: 1em">
+          <img src="brownian.png" style="width: 100%" /><br /><br />
+          <img src="code.png" style="width: 100%" />
+        </td>
+      </tr>
+    </table>
+
+    <hr id="dash" />
+    <h2>Class schedule</h2>
+
+    <ul>
+      <li style="background-color: #efe9e9; padding: 1em">
+        <b>Week 1 (Tues Aug 30 & Thur Sep 1).</b>
+        Basic data structures.<br />
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/intro_slides.html">slides</a>,
+            <a href="lectures/intro.html">html</a>,
+            <a href="lectures/intro.Rmd">Rmd</a>
+
+            <br />
+          </li>
+
+          <li>
+            Intruder code:
+            <a href="lectures/intruder_demo.R">intruder_demo.R</a>,
+            <a href="lectures/intruder.R">intruder.R</a>
+          </li>
+
+          <li>Quiz 1: (see Gradescope)</li>
+
+          <li>
+            Lab 1: <a href="labs/lab_01.pdf">pdf</a>,
+            <a href="labs/lab_01.html">html</a>,
+            <a href="labs/lab_01.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+      <li style="background-color: #ffffff; padding: 1em">
+        <b>Week 2 (Tues Sept 6 & Thur Sept 8).</b>
+        Indexing and iteration.<br />
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/iteration_slides.html">slides</a>,
+            <a href="lectures/iteration.html">html</a>,
+            <a href="lectures/iteration.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 2: (see Gradescope)</li>
+
+          <li>
+            Lab 2: <a href="labs/lab_02.pdf">pdf</a>,
+            <a href="labs/lab_02.html">html</a>,
+            <a href="labs/lab_02.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+
+      <li style="background-color: #efe9e9; padding: 1em">
+        <b>Week 3 (Tues Sept 13 & Thur Sept 15).</b>
+        Data frames and apply.<br />
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/apply_slides.html">slides</a>,
+            <a href="lectures/apply.html">html</a>,
+            <a href="lectures/apply.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 3: (see Gradescope)</li>
+
+          <li>
+            Lab 3: <a href="labs/lab_03.pdf">pdf</a>,
+            <a href="labs/lab_03.html">html</a>,
+            <a href="labs/lab_03.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+
+      <li style="background-color: #ffffff; padding: 1em">
+        <b>Week 4 (Tues Sept 20 & Thur Sept 22).</b>
+        Purrr and a bit of dplyr.<br />
+        <br />
+
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/purrr_slides.html">slides</a>,
+            <a href="lectures/purrr.html">html</a>,
+            <a href="lectures/purrr.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 4: (see Gradescope)</li>
+
+          <li>
+            Lab 4: <a href="labs/lab_04.pdf">pdf</a>,
+            <a href="labs/lab_04.html">html</a>,
+            <a href="labs/lab_04.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+      <li style="background-color: #efe9e9; padding: 1em">
+        <b>Week 5 (Tues Sept 27 & Thur Sept 29).</b>
+        Dplyr, pipes, and more.<br />
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/dplyr_slides.html">slides</a>,
+            <a href="lectures/dplyr.html">html</a>,
+            <a href="lectures/dplyr.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 5: (see Gradescope)</li>
+
+          <li>
+            Lab 5: <a href="labs/lab_05.pdf">pdf</a>,
+            <a href="labs/lab_05.html">html</a>,
+            <a href="labs/lab_05.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+
+      <li style="background-color: #ffffff; padding: 1em">
+        <b>Week 6 (Tues Oct 4 & Thur Oct 6).</b>
+        Text manipulation.<br />
+        <br />
+
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/text_slides.html">slides</a>,
+            <a href="lectures/text.html">html</a>,
+            <a href="lectures/text.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 6: (see Gradescope)</li>
+
+          <li>
+            Lab 6: <a href="labs/lab_06.pdf">pdf</a>,
+            <a href="labs/lab_06.html">html</a>,
+            <a href="labs/lab_06.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+
+      <li style="background-color: #efe9e9; padding: 1em">
+        <b>Week 7 (Tues Oct 11).</b>
+        Plotting.<br />
+      
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/plotting_slides.html">slides</a>,
+            <a href="lectures/plotting.html">html</a>,
+            <a href="lectures/plotting.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 7: (see Gradescope)</li>
+
+          <li>
+            Lab 7: <a href="labs/lab_07.pdf">pdf</a>,
+            <a href="labs/lab_07.html">html</a>,
+            <a href="labs/lab_07.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+    <li style="background-color: #ffffff; padding: 1em">
+        <!-- <b>Week 8 (Tues Oct 18 & Thur Oct 20).</b> -->
+        <b> <u>Week of Tues Oct 18 & Thur Oct 20: Fall break -  no classes!</u> </b><br />
+    </li>
+
+
+
+      <li style="background-color: #ffffff; padding: 1em">
+        <b>Week 8 (Tues Oct 25 & Thur Oct 27).</b>
+        Functions.<br />
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/functions_slides.html">slides</a>,
+            <a href="lectures/functions.html">html</a>,
+            <a href="lectures/functions.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 8: (see Gradescope)</li>
+
+          <li>
+            Lab 8: <a href="labs/lab_08.pdf">pdf</a>,
+            <a href="labs/lab_08.html">html</a>,
+            <a href="labs/lab_08.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+
+      <li style="background-color: #efe9e9; padding: 1em">
+        <b>Week 9 (Tues Nov 1 & Thur Nov 3).</b>
+        Simulation.<br />
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/simulation_slides.html">slides</a>,
+            <a href="lectures/simulation.html">html</a>,
+            <a href="lectures/simulation.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 9: (see Gradescope)</li>
+
+          <li>
+            Lab 9: <a href="labs/lab_09.pdf">pdf</a>,
+            <a href="labs/lab_09.html">html</a>,
+            <a href="labs/lab_09.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+      <li style="background-color: #ffffff; padding: 1em">
+        <b>Week 10 (Tues Nov 8 & Thur Nov 10).</b>
+        Fitting models to data.<br />
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/models_slides.html">slides</a>,
+            <a href="lectures/models.html">html</a>,
+            <a href="lectures/models.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 10: (see Gradescope)</li>
+
+          <li>
+            Lab 10: <a href="labs/lab_10.pdf">pdf</a>,
+            <a href="labs/lab_10.html">html</a>,
+            <a href="labs/lab_10.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+
+      <li style="background-color: #efe9e9; padding: 1em">
+        <b>Week 11 (Tues Nov 15 & Thur Nov 17).</b>
+        Debugging and testing.<br />
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/debugging_slides.html">slides</a>,
+            <a href="lectures/debugging.html">html</a>,
+            <a href="lectures/debugging.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 11: (see Gradescope)</li>
+
+          <li>
+            Lab 11: <a href="labs/lab_11.pdf">pdf</a>,
+            <a href="labs/lab_11.html">html</a>,
+            <a href="labs/lab_11.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+
+<li style="background-color: #ffffff; padding: 1em">
+        <b>Week 12 (Tues Nov 22).</b>
+     <!--   Version control through Git, and how to make an R package.<br /> 
+        <b>No class Thursday: Thanksgiving break. There will also be no Quiz 12
+        and no Lab 12!</b><br /> -->
+<b>No classes this week: Thanksgiving break. There will also be no Quiz 12
+        and no Lab 12!</b><br />        
+
+        <br />
+    <!--    <ul id="sub">
+          <li>
+            Notes: <i>This will be entirely impromptu: live building of a new R 
+        package with version control through GitHub.</i>
+          </li>
+        </ul> -->
+      </li>
+
+
+
+      <li style="background-color: #efe9e9; padding: 1em">
+        <b>Week 13 (Tues Nov 29 and Thur Dec 1).</b>
+        Relational databases.<br />
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/databases_slides.html">slides</a>,
+            <a href="lectures/databases.html">html</a>,
+            <a href="lectures/databases.Rmd">Rmd</a>
+          </li>
+
+          <li>Quiz 13: (see Gradescope)</li>
+
+          <li>
+            Lab 13: <a href="labs/lab_13.pdf">pdf</a>,
+            <a href="labs/lab_13.html">html</a>,
+            <a href="labs/lab_13.Rmd">Rmd</a>
+          </li>
+        </ul>
+      </li>
+
+  
+
+      <li style="background-color: #ffffff; padding: 1em">
+        <b>Week 14 (Tues Dec 6 & Thur Dec 8).</b>
+        Statistical prediction.<br />
+			<b>Final exam will be held during our Thursday class time.</b> <br />There is no
+        Quiz 14 and no Lab 14.<br /> 
+
+        <br />
+        <ul id="sub">
+          <li>
+            Notes: <a href="lectures/prediction_slides.html">slides</a>,
+            <a href="lectures/prediction.html">html</a>,
+            <a href="lectures/prediction.Rmd">Rmd</a>
+          </li>
+
+         <!-- <li>
+            Lab 14: <a href="labs/lab_14.pdf">pdf</a>,
+            <a href="labs/lab_14.html">html</a>,
+            <a href="labs/lab_14.Rmd">Rmd</a>
+          </li>-->
+        </ul>
+      </li>
+    </ul>
+
+
+
+
+    <a href="#top">Top</a>
+    <hr id="dash" />
+
+    <h2>Supplementary materials</h2>
+
+    <ul>
+      <li>
+        <a href="http://r4ds.had.co.nz">R for Data Science</a>, by Hadley
+        Wickham (based in the <code>tidyverse</code>)
+      </li>
+
+      <li>
+        <a href="https://adv-r.hadley.nz">Advanced R</a>, by Hadley
+        Wickham (based in the <code>tidyverse</code>)
+      </li>
+
+      <li>
+        <a href="https://www.rstudio.com/resources/cheatsheets/"
+          >RStudio Cheat Sheets</a
+        >, reference guides for common packages (mostly for
+        <code>tidyverse</code>)
+      </li>
+
+      <li>
+        <a href="https://socviz.co/"
+          >Data Visualization: A Practical Introduction</a
+        >, by Kieran Healy (gentle intro to <code>ggplot2</code>)
+      </li>
+
+      <li>
+        <a
+          href="http://www.amazon.com/R-Graphics-Cookbook-Winston-Chang/dp/1449316956"
+          >The R Graphics Cookbook</a
+        >, by Winston Chang
+      </li>
+
+      <li>
+        <a
+          href="http://www.amazon.com/Software-Data-Analysis-Programming-Statistics/dp/0387759352"
+          >Software for Data Analysis: Programming with R</a
+        >, by John Chambers (advanced book)
+      </li>
+
+      <li> 
+        <a href="">R Markdown: The Definitive Guide</a>, by Yihui Xie, J. J. Allaire and Garrett Grolemund 
+      </li>
+
+    </ul>
+
+    <a href="#top">Top</a>
+  </body>
+</html>

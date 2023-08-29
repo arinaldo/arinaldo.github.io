@@ -1,0 +1,392 @@
+---
+title: "Text Manipulation"
+author: "Statistical Computing, 36-350"
+date: "Tuesday October 4, 2022"
+---
+
+Last week: Dplyr, pipes, and more
+===
+
+- The tidyverse is a collection of packages for common data science tasks
+- Tidyverse functionality is greatly enhanced using pipes (`%>%` operator)
+- Pipes allow you to string together commands to get a flow of results
+- `dplyr` is a package for data wrangling, with several key verbs (functions)
+- `filter()`: subset rows based on a condition
+- `group_by()`: define groups of rows according to a condition
+- `summarize()`: apply computations across groups of rows
+- `arrange()`: order rows by value of a column
+- `select()`: pick out given columns
+- `mutate()`: create new columns
+- `mutate_at()`: apply a function to given columns
+- `tidyr` is a package for manipulating the structure of data frames
+- `pivot_longer()`: make "wide" data longer
+- `pivot_wider()`: make "long" data wider
+
+<span style="color: blue">Part I</span>
+===
+
+<span style="color: blue">*String basics*</span>
+
+What are strings?
+===
+
+The simplest distinction:
+
+- **Character:** a symbol in a written language, like letters, numerals, punctuation, space, etc.
+
+- **String:** a sequence of characters bound together
+
+```{r}
+class("r")
+class("Ryan")
+```
+
+Why do we care about strings?
+
+- A lot of interesting data out there is in text format!
+- Webpages, emails, surveys, logs, search queries, etc.
+- Even if you just care about numbers eventually, you'll need to understand how to get numbers from text
+
+Whitespaces
+===
+
+Whitespaces count as characters and can be included in strings:
+
+- `" "` for space
+- `"\n"` for newline
+- `"\t"` for tab
+
+```{r}
+str = "Dear Mr. Carnegie,\n\nThanks for the great school!\n\nSincerely, Ryan"
+str
+```
+
+Use `cat()` to print strings to the console, displaying whitespaces properly
+
+```{r}
+cat(str)
+```
+
+Vectors/matrices of strings
+===
+
+The character is a basic data type in R (like numeric, or logical), so we can make vectors or matrices of out them. Just like we would with numbers
+
+```{r}
+str.vec = c("Statistical", "Computing", "isn't that bad") # Collect 3 strings
+str.vec # All elements of the vector
+str.vec[3] # The 3rd element
+str.vec[-(1:2)] # All but the 1st and 2nd
+
+str.mat = matrix("", 2, 3) # Build an empty 2 x 3 matrix
+str.mat[1,] = str.vec # Fill the 1st row with str.vec
+str.mat[2,1:2] = str.vec[1:2] # Fill the 2nd row, only entries 1 and 2, with
+                              # those of str.vec
+str.mat[2,3] = "isn't a fad" # Fill the 2nd row, 3rd entry, with a new string
+str.mat # All elements of the matrix
+t(str.mat) # Transpose of the matrix
+```
+
+Converting other data types to strings
+===
+
+Easy! Make things into strings with `as.character()`
+
+```{r}
+as.character(0.8)
+as.character(0.8e+10)
+as.character(1:5)
+as.character(TRUE)
+```
+
+Converting strings to other data types
+===
+
+Not as easy! Depends on the given string, of course
+
+```{r}
+as.numeric("0.5")
+as.numeric("0.5 ")
+as.numeric("0.5e-10")
+as.numeric("Hi!")
+as.logical("True")
+as.logical("TRU")
+```
+
+Number of characters
+===
+
+Use `nchar()` to count the number of characters in a string
+
+```{r}
+nchar("coffee")
+nchar("code monkey")
+length("code monkey")
+length(c("coffee", "code monkey"))
+nchar(c("coffee", "code monkey")) # Vectorization!
+```
+
+<span style="color: blue">Part II</span>
+===
+
+<span style="color: blue">*Substrings, splitting and combining strings*</span>
+
+
+Getting a substring
+===
+
+Use `substr()` to grab a subsequence of characters from a string, called a **substring**
+
+```{r}
+phrase = "Give me a break"
+substr(phrase, 1, 4)
+substr(phrase, nchar(phrase)-4, nchar(phrase))
+substr(phrase, nchar(phrase)+1, nchar(phrase)+10)
+```
+
+`substr()` vectorizes
+===
+
+Just like `nchar()`, and many other string functions
+
+```{r}
+presidents = c("Clinton", "Bush", "Reagan", "Carter", "Ford")
+substr(presidents, 1, 2) # Grab the first 2 letters from each
+substr(presidents, 1:5, 1:5) # Grab the first, 2nd, 3rd, etc.
+substr(presidents, 1, 1:5) # Grab the first, first 2, first 3, etc.
+substr(presidents, nchar(presidents)-1, nchar(presidents)) # Grab the last 2
+                                                           # letters from each
+```
+
+Replace a substring
+===
+
+Can also use `substr()` to replace a character, or a substring
+
+```{r}
+phrase
+substr(phrase, 1, 1) = "L"
+phrase # "G" changed to "L"
+substr(phrase, 1000, 1001) = "R"
+phrase # Nothing happened
+substr(phrase, 1, 4) = "Show"
+phrase # "Live" changed to "Show"
+```
+
+Splitting a string
+===
+
+Use the `strsplit()` function to split based on a keyword
+
+```{r}
+ingredients = "chickpeas, tahini, olive oil, garlic, salt"
+split.obj = strsplit(ingredients, split=",")
+split.obj
+class(split.obj)
+length(split.obj)
+```
+
+Note that the output is actually a list! (With just one element, which is a vector of strings)
+
+`strsplit()` vectorizes
+===
+
+Just like `nchar()`, `substr()`, and the many others
+
+```{r}
+great.profs = "Nugent, Genovese, Greenhouse, Seltman, Shalizi, Ventura"
+favorite.cats = "tiger, leopard, jaguar, lion"
+split.list = strsplit(c(ingredients, great.profs, favorite.cats), split=",")
+split.list
+```
+
+- Returned object is a list with 3 elements
+- Each one a vector of strings, having lengths 5, 6, and 4 
+- Do you see why `strsplit()` needs to return a list now?
+
+Splitting character-by-character
+===
+
+Finest splitting you can do is character-by-character: use `strsplit()` with `split=""`
+
+```{r}
+split.chars = strsplit(ingredients, split="")[[1]]
+split.chars
+length(split.chars)
+nchar(ingredients) # Matches the previous count
+```
+
+Combining strings
+===
+
+Use the `paste()` function to join two (or more) strings into one, separated by a keyword
+
+```{r}
+paste("Spider", "Man") # Default is to separate by " "
+paste("Spider", "Man", sep="-")
+paste("Spider", "Man", "does whatever", sep=", ")
+```
+
+`paste()` vectorizes
+===
+
+Just like `nchar()`, `substr()`, `strsplit()`, etc. Seeing a theme yet?
+
+```{r}
+presidents
+paste(presidents, c("D", "R", "R", "D", "R"))
+paste(presidents, c("D", "R")) # Notice the recycling (not historically accurate!)
+paste(presidents, " (", 42:38, ")", sep="")
+```
+
+Condensing a vector of strings
+===
+
+Can condense a vector of strings into one big string by using `paste()` with the `collapse` argument
+
+```{r}
+presidents
+paste(presidents, collapse="; ")
+paste(presidents, " (", 42:38, ")", sep="", collapse="; ")
+paste(presidents, " (", c("D", "R", "R", "D", "R"), 42:38, ")", sep="", collapse="; ")
+paste(presidents, collapse=NULL) # No condensing, the default
+```
+
+<span style="color: blue">Part III</span>
+===
+
+<span style="color: blue">*Reading in text, summarizing text*</span>
+
+Text from the outside
+===
+
+How to get text, from an external source, into R? Use the `readLines()` function
+
+```{r}
+king.lines = readLines("https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt")
+class(king.lines) # We have a character vector
+length(king.lines) # Many lines (elements)!
+king.lines[1:3] # First 3 lines
+```
+
+(This was Martin Luther King Jr.'s famous "I Have a Dream" speech at the March on Washington for Jobs and Freedom on August 28, 1963)
+
+Reading from a local file
+===
+
+We don't need to use the web; `readLines()` can be used on a local file. The following code would read in a text file from Professor Rinaldo's computer:
+
+```{r, error=TRUE}
+king.lines.2 = readLines("~/Dropbox/Teaching/36-350/36-350_F22/webpage/data/king.txt")
+```
+
+This will cause an error for you, unless your folder is set up exactly like Professor Rinaldo's laptop! So using web links is more robust
+
+Reconstitution
+===
+
+Fancy word, but all it means: make one long string, then split the words
+
+```{r}
+king.text = paste(king.lines, collapse=" ")
+king.words = strsplit(king.text, split=" ")[[1]]
+
+# Sanity check
+substr(king.text, 1, 150)
+king.words[1:20]
+```
+
+Counting words
+===
+
+Our most basic tool for summarizing text: **word counts**, retrieved using `table()`
+
+```{r}
+king.wordtab = table(king.words)
+class(king.wordtab)
+length(king.wordtab)
+king.wordtab[1:10]
+```
+
+What did we get? Alphabetically sorted unique words, and their counts = number of appearances
+
+The names are words, the entries are counts
+===
+
+Note: this is actually a vector of numbers, and the words are the names of the vector
+
+```{r}
+king.wordtab[1:5]
+king.wordtab[2] == 2
+names(king.wordtab)[2] == "-"
+```
+
+So with named indexing, we can now use this to look up whatever words we want
+
+```{r}
+king.wordtab["dream"] 
+king.wordtab["Negro"]
+king.wordtab["freedom"]
+king.wordtab["equality"] # NA means King never mentioned equality
+```
+
+Most frequent words
+===
+
+Let's sort in decreasing order, to get the most frequent words
+
+```{r}
+king.wordtab.sorted = sort(king.wordtab, decreasing=TRUE)
+length(king.wordtab.sorted)
+head(king.wordtab.sorted, 20) # First 20
+tail(king.wordtab.sorted, 20) # Last 20
+```
+
+Notice that punctuation matters, e.g., "York" and "York." are treated as separate words, not ideal---we'll learn just a little bit about how to fix this on lab, using **regular expressions**
+
+Visualizing frequencies
+===
+
+Let's use a plot to visualize frequencies
+
+```{r}
+nw = length(king.wordtab.sorted)
+plot(1:nw, as.numeric(king.wordtab.sorted), type="l",
+     xlab="Rank", ylab="Frequency")
+```
+
+A pretty drastic looking trend! It looks as if $\mathrm{Frequency} \propto (1/\mathrm{Rank})^a$ for some $a>0$
+
+Zipf's law
+===
+
+This phenomenon, that frequency tends to be inversely proportional to a power of rank, is called **Zipf's law** 
+
+For our data, Zipf's law approximately holds, with $\mathrm{Frequency} \approx C(1/\mathrm{Rank})^a$ for $C=100$ and $a=0.65$
+
+```{r}
+C = 100; a = 0.65
+king.wordtab.zipf = C*(1/1:nw)^a
+cbind(king.wordtab.sorted[1:8], king.wordtab.zipf[1:8])
+```
+
+Not perfect, but not bad. We can also plot the original sorted word counts, and those estimated by our formula law on top
+
+```{r}
+plot(1:nw, as.numeric(king.wordtab.sorted), type="l",
+     xlab="Rank", ylab="Frequency")
+curve(C*(1/x)^a, from=1, to=nw, col="red", add=TRUE)
+```
+
+We'll learn about plotting tools in detail a bit later
+
+Summary
+===
+
+- Strings are, simply put, sequences of characters bound together
+- Text data occurs frequently "in the wild", so you should learn how to deal with it!
+- `nchar()`, `substr()`: functions for substring extractions and replacements
+- `strsplit()`, `paste()`: functions for splitting and combining strings
+- Reconstitution: take lines of text, combine into one long string, then split to get the words
+- `table()`: function to get word counts, useful way of summarizing text data
+- Zipf's law: word frequency tends to be inversely proportional to (a power of) rank

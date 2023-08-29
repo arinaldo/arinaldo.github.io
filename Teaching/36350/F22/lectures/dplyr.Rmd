@@ -1,0 +1,413 @@
+---
+title: "Dplyr, Pipes, and More"
+author: "Statistical Computing, 36-350"
+date: "Tuesday September 27, 2022"
+---
+
+Last week: Purrr and a bit of dplyr
+===
+
+- The tidyverse is a collection of packages for common data science tasks
+- `purrr` is one such package that provides a consistent family of iteration functions
+- `map()`: list in, list out
+- `map_dbl()`, `map_lgl()`, `map_chr()`: list in, vector out (of a particular data type)
+- `map_dfr()`, `map_dfc()`: list in, data frame out (row-binded or column-binded)
+- `dplyr` is another such package that provides functions for data frame computations
+- `filter()`: subset rows based on a condition
+- `group_by()`: define groups of rows according to a condition
+- `summarize()`: apply computations across groups of rows
+
+<span style="color: blue">Part I</span>
+===
+
+<span style="color: blue">*Motivation: tidyverse, revisited*</span>
+
+What is the tidyverse?
+===
+
+The tidyverse is a coherent collection of packages in R for data science (and `tidyverse` is itself a actually package that loads all its constituent packages). Packages include:
+
+- **Data wrangling**: `dplyr`, `tidyr`, `readr`
+- **Iteration**: `purrr`
+- **Visualization**: `ggplot2`
+
+Last week we covered `purrr` and a bit of `dplyr`. This week we'll do more `dplyr`, and some `tidyr`. (Many of you will learn `ggplot2` in Statistical Graphics 36-315)
+
+Loading the tidyverse so that we can get all this functionality (plus more): 
+
+```{r}
+library(tidyverse)
+```
+
+Why the tidyverse?
+===
+
+- Packages have a very consistent API
+- Very active developer and user community
+- Function names and commands follow a focused **grammar**
+- Powerful and fast when working with data frames and lists (matrices, not so much, yet!)
+- Pipes (`%>%` operator) allows us to fluidly glue functionality together
+- At its best, tidyverse code can be **read like a story** using the pipe operator!
+
+---
+
+<img src="packages.png" width="600">
+
+Data wrangling the tidy way
+===
+
+- Packages `dplyr` and `tidyr` are going to be our main workhorses for data wrangling
+- Main structure these packages use is the data frame (or tibble, but we won't go there)
+- Learning pipes `%>%` will facilitate learning the `dplyr` and `tidyr` verbs (functions) 
+- `dplyr` functions are analogous to SQL counterparts, so learn `dplyr` and get SQL for free!
+
+<span style="color: blue">Part II</span>
+===
+
+<span style="color: blue">*Mastering the pipe*</span>
+
+All behold the glorius pipe 
+===
+
+- Tidyverse functions are at their best when composed together using the pipe operator
+- It looks like this: `%>%`. **Shortcut**: use `ctrl + shift + m` in RStudio
+- This operator actually comes from the `magrittr` package (automatically included in `dplyr`)
+- **Piping** at its most basic level: 
+
+    > Take one return value and automatically feed it in as an input to another function, to form a flow of results
+
+- In unix and related systems, we also have pipes, as in:
+```{bash, eval=FALSE}
+ls -l | grep tidy | wc -l
+```
+
+How to read pipes: single arguments
+===
+
+Passing a single argument through pipes, we interpret something like:
+
+```{r, eval=FALSE}
+x %>% f %>% g %>% h
+```
+
+as `h(g(f(x)))`
+
+**Key takeaway**: in your mind, when you see `%>%`, read this as **"and then"**
+
+Simple example
+===
+
+We can write `exp(1)` with pipes as `1 %>% exp`, and `log(exp(1))` as `1 %>% exp %>% log`
+
+```{r}
+exp(1)
+1 %>% exp
+1 %>% exp %>% log
+```
+
+How to read pipes: multiple arguments
+===
+
+Now for multi-arguments functions, we interpret something like:
+
+```{r, eval=FALSE}
+x %>% f(y) 
+```
+
+as `f(x,y)`
+
+Simple example
+===
+
+```{r, eval=FALSE}
+mtcars %>% head(4) 
+```
+
+And what's the "old school" (base R) way?
+
+```{r, eval=FALSE}
+head(mtcars, 4)
+```
+
+Notice that, with pipes:  
+
+- Your code is more readable (arguably)  
+- You can run partial commands more easily
+
+The dot
+===
+
+The command `x %>% f(y)` can be equivalently written in **dot notation** as:
+
+```{r, eval=FALSE}
+x %>% f(., y)
+```
+
+What's the advantage of using dots? Sometimes you want to pass in a variable as the *second* or *third* (say, not first) argument to a function, with a pipe. As in:
+
+```{r, eval=FALSE}
+x %>% f(y, .)
+```
+
+which is equivalent to `f(y,x)`
+
+Simple example
+===
+
+Again, see if you can interpret the code below without running it, then run it in your R console as a way to check your understanding:
+
+```{r, eval=FALSE}
+state_df = data.frame(state.x77)
+state.region %>% 
+  tolower %>%
+  tapply(state_df$Income, ., summary)
+```
+
+A more complicated example:
+
+```{r, eval=TRUE}
+x = "Prof Rinaldo really loves piping"
+x %>% 
+  strsplit(split = " ") %>% 
+  .[[1]] %>% # indexing, could also use `[[`(1)
+  nchar %>% 
+  max 
+```
+
+<span style="color: blue">Part III</span>
+===
+
+<span style="color: blue">*`dyplr` verbs*</span>
+
+`dplyr` verbs 
+===
+
+Some of the most important `dplyr` verbs (functions):
+
+- `filter()`: subset rows based on a condition
+- `group_by()`: define groups of rows according to a condition
+- `summarize()`: apply computations across groups of rows
+- `arrange()`: order rows by value of a column
+- `select()`: pick out given columns
+- `mutate()`: create new columns
+- `mutate_at()`: apply a function to given columns
+
+We've learned `filter()`, `group_by()`, `summarize()` in the last lecture. (Go back and rewrite the examples using pipes!)
+
+`arrange()`: order rows by values of a column
+===
+
+```{r}
+mtcars %>% 
+  arrange(mpg) %>% 
+  head(4)
+
+# Base R
+mpg_inds = order(mtcars$mpg)
+head(mtcars[mpg_inds, ], 4)
+```
+
+---
+
+We can ask for descending order:
+
+```{r}
+mtcars %>% 
+  arrange(desc(mpg)) %>% 
+  head(4)
+
+# Base R
+mpg_inds_decr = order(mtcars$mpg, decreasing = TRUE)
+head(mtcars[mpg_inds_decr, ], 4)
+```
+
+---
+
+We can order by multiple columns too:
+
+```{r}
+mtcars %>% 
+  arrange(desc(gear), desc(hp)) %>%
+  head(8)
+```
+
+`select()`: pick out given columns
+===
+
+```{r}
+mtcars %>% 
+  select(cyl, disp, hp) %>% 
+  head(2)
+
+# Base R
+head(mtcars[, c("cyl", "disp", "hp")], 2)
+```
+
+Some handy `select()` helpers
+===
+
+```{r}
+mtcars %>% 
+  select(starts_with("d")) %>% 
+  head(2)
+
+# Base R (yikes!)
+d_colnames = grep(x = colnames(mtcars), pattern = "^d")
+head(mtcars[, d_colnames], 2)
+```
+
+---
+
+We can do many other things as well:
+
+```{r}
+mtcars %>% select(ends_with('t')) %>% head(2)
+mtcars %>% select(ends_with('yl')) %>% head(2)
+mtcars %>% select(contains('ar')) %>% head(2)
+```
+
+(If you're interested go and read more [here](https://dplyr.tidyverse.org/reference/select.html#useful-functions))
+
+`mutate()`: create one or several columns
+===
+
+```{r}
+mtcars = mtcars %>% 
+  mutate(hp_wt = hp/wt, 
+         mpg_wt = mpg/wt) 
+
+# Base R
+mtcars$hp_wt = mtcars$hp/mtcars$wt
+mtcars$mpg_wt = mtcars$mpg/mtcars$wt
+```
+
+---
+
+Newly created variables are useable immediately:
+
+```{r}
+mtcars = mtcars %>% 
+  mutate(hp_wt_again = hp/wt,
+         hp_wt_cyl = hp_wt_again/cyl) 
+
+# Base R
+mtcars$hp_wt_again = mtcars$hp/mtcars$wt
+mtcars$hp_wt_cyl = mtcars$hp_wt_again/mtcars$cyl
+```
+
+`mutate_at()`: apply a function to one or several columns
+===
+
+```{r}
+mtcars = mtcars %>% 
+  mutate_at(c("hp_wt", "mpg_wt"), log) 
+
+# Base R
+mtcars$hp_wt = log(mtcars$hp_wt)
+mtcars$mpg_wt = log(mtcars$mpg_wt)
+```
+
+Important note
+===
+
+Calling `dplyr` verbs always outputs a new data frame, it *does not alter* the existing data frame
+
+So to keep the changes, we have to reassign the data frame to be the output of the pipe! (Look back at the examples for `mutate()` and `mutate_at()`)
+
+`dplyr` and SQL
+===
+
+- Once you learn `dplyr` you should find SQL very natural, and vice versa!
+- For example, `select` is `SELECT`, `filter` is `WHERE`, `arrange` is `ORDER BY` etc.
+- This will make it much easier for tasks that require using both R and SQL to munge data and build statistical models
+- One major link is through powerful verbs like `group_by()` and `summarize()`, which are used to aggregate data (next lecture)
+- Another major link to SQL is through merging/joining data frames, via `left_join()` and `inner_join()` verbs (which we'll learn later)
+
+<span style="color: blue">Part IV</span>
+===
+
+<span style="color: blue">*`tidyr` verbs*</span>
+
+`tidyr` verbs 
+===
+
+Two of the most important `tidyr` verbs (functions):
+
+- `pivot_longer()`: make "wide" data longer 
+- `pivot_wider()`: make "long" data wider
+
+There are many others like `spread()`, `gather()`, `nest()`, `unnest()`, etc. (If you're interested go and read about them [here](https://tidyr.tidyverse.org/reference/index.html))
+
+`pivot_longer()`: make "wide" data longer
+===
+
+```{r, message=FALSE, warning=FALSE}
+#devtools::install_github("rstudio/EDAWR") or remotes::install_github("rstudio/EDAWR")
+library(EDAWR) # Load some nice data sets
+EDAWR::cases 
+
+EDAWR::cases %>% 
+  pivot_longer(names_to = "year", 
+               values_to = "n", 
+               cols = 2:4) 
+```
+
+---
+
+- Here we transposed columns 2:4 into a `year` column 
+- We put the corresponding count values into a column called `n`
+- Note `tidyr` did all the heavy lifting of the transposing work
+- We just had to declaratively specify the output
+
+---
+
+```{r}
+# Different approach to do the same thing
+EDAWR::cases %>% 
+  pivot_longer(names_to = "year", 
+               values_to = "n", 
+               -country) 
+
+# Could also do: 
+# EDAWR::cases %>% 
+#   pivot_longer(names_to = "year", 
+#                values_to = "n", 
+#                c(`2011`, `2012`, `2013`)) 
+```
+
+`pivot_wider()`: make "long" data wider
+===
+
+```{r}
+EDAWR::pollution
+
+EDAWR::pollution %>% 
+  pivot_wider(names_from = "size", 
+              values_from = "amount")
+```
+
+---
+
+- Here we transposed to a wide format by size 
+- We tabulated the corresponding amount for each size
+- Note `tidyr` did all the heavy lifting again
+- We just had to declaratively specify the output 
+- Note that `pivot_wider()` and `pivot_longer()` are inverses
+
+Summary
+===
+
+- The tidyverse is a collection of packages for common data science tasks
+- Tidyverse functionality is greatly enhanced using pipes (`%>%` operator)
+- Pipes allow you to string together commands to get a flow of results
+- `dplyr` is a package for data wrangling, with several key verbs (functions)
+- `filter()`: subset rows based on a condition
+- `group_by()`: define groups of rows according to a condition
+- `summarize()`: apply computations across groups of rows
+- `arrange()`: order rows by value of a column
+- `select()`: pick out given columns
+- `mutate()`: create new columns
+- `mutate_at()`: apply a function to given columns
+- `tidyr` is a package for manipulating the structure of data frames
+- `pivot_longer()`: make "wide" data longer
+- `pivot_wider()`: make "long" data wider

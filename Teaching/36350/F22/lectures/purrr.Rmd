@@ -1,0 +1,262 @@
+---
+title: "Purrr and a Bit of Dplyr"
+author: "Statistical Computing, 36-350"
+date: "Tuesday September 20, 2022"
+---
+
+Last week: Data frames and apply
+===
+
+- Data frames are a representation of the "classic" data table in R: rows are observations/cases, columns are variables/features
+- Each column can be a different data type (but must be the same length)
+- `subset()`: function for extracting rows of a data frame meeting a condition 
+- `split()`: function for splitting up rows of a data frame, according to a factor variable
+- `apply()`: function for applying a given routine to rows or columns of a matrix or data frame
+- `lapply()`: similar, but used for applying a routine to elements of a vector or list
+- `sapply()`: similar, but will try to simplify the return type, in comparison to `lapply()`
+- `tapply()`: function for applying a given routine to groups of elements in a vector or list, according to a factor variable
+
+<span style="color: blue">Part I</span>
+===
+
+<span style="color: blue">*Motivation: tidyverse*</span>
+
+Common iteration tasks
+===
+
+Here's a basic breakdown for common iteration tasks that we encounter in R: we iterate over ...
+
+- elements of a list
+- dimensions of an array (e.g., rows/columns of a matrix)
+- sub data frames induced by one or more factors
+
+All of this is possible in base R, using the apply family of functions: `lapply()`, `sapply()`, `apply()`, `tapply()`, etc. So why look anywhere else?
+
+---
+
+Answer: because some alternatives offer better **consistency**
+
+- With the apply family of functions, there are some inconsistencies in both the **interfaces** to the functions, as well as their **outputs**
+- This can both slow down learning and also lead to inefficiencies in practice (frequent checking and post-processing of results)
+
+However, the world isn't black-and-white: base R still has its advantages, and the best thing you can do is to be informed and well-versed in using all the major options!
+
+Why not `plyr`?
+===
+
+The `plyr` package used to be one of the most popular (most downloaded) R packages of all-time. It was more popular in the late 2000s and early 2010s
+
+- All `plyr` functions are of the form `**ply()`
+- Replace `**` with characters denoting types:
+    * First character: input type, one of `a`, `d`, `l` 
+    * Second character: output type, one of `a`, `d`, `l`, or `_` (drop)
+    
+It is no longer under active development and that development is now happening elsewhere (mainly in the tidyverse). However, some people still like it. If you want to learn about it, you can check out the [notes from a previous offering of this course](https://www.stat.cmu.edu/~ryantibs/statcomp-F19/lectures/plyr_slides.html). 
+
+What is `purrr`?
+===
+
+`purrr` is a package that is part of the tidyverse. It offers a family of functions for iterating (mainly over lists) that can be seen as alternatives to base R's family of apply functions
+
+- Compared to base R, they are more consistent 
+- Compared to `plyr`, they can often be faster
+
+Credit: [Jenny Bryan's tutorial on `purrr`](https://jennybc.github.io/purrr-tutorial/index.html) provided the inspiration for this lecture. Another good reference is [Chapter 21: Iterations](https://r4ds.had.co.nz/iteration.html) of the book [R for Data Science](https://r4ds.had.co.nz/index.html).
+
+What is the tidyverse?
+===
+
+The tidyverse is a coherent collection of packages in R for data science (and `tidyverse` is itself a actually package that loads all its constituent packages). Packages include:
+
+- **Data wrangling**: `dplyr`, `tidyr`, `readr`
+- **Iteration**: `purrr`
+- **Visualization**: `ggplot2`
+
+This week we'll cover `purrr` and a bit of `dplyr`. Next week we'll do more `dplyr`, and some `tidyr`. (Many of you will learn `ggplot2` in Statistical Graphics 36-315)
+
+Loading the tidyverse so that we can get all this functionality (plus more): 
+
+```{r}
+library(tidyverse)
+```
+
+<span style="color: blue">Part II</span>
+===
+
+<span style="color: blue">*`map()` and friends*</span>
+
+The map family
+===
+
+`purrr` offers a family of **map functions**, which allow you to apply a function across different chunks of data (primarily used with lists). Offers an alternative base R's apply functions. Summary of functions: 
+
+- `map()`: apply a function across elements of a list or vector
+- `map_dbl()`, `map_lgl()`, `map_chr()`: same, but return a vector of a particular data type
+- `map_dfr()`, `map_dfc()`: same, but return a data frame
+
+`map()`: list in, list out
+===
+
+The `map()` function is an alternative to `lapply()`. It has the following simple form: `map(x, f)`, where `x` is a list or vector, and `f` is a function. It always returns a list
+
+```{r}
+my.list = list(nums=seq(0.1,0.6,by=0.1), chars=letters[1:12], 
+               bools=sample(c(TRUE,FALSE), 6, replace=TRUE))
+map(my.list, length)
+
+# Base R is just as easy
+lapply(my.list, length)
+```
+
+`map_dbl()`: list in, numeric out
+===
+
+The `map_dbl()` function is an alternative to `sapply()`. It has the form: `map_dbl(x, f)`, where `x` is a list or vector, and `f` is a function that returns a numeric value (when applied to each element of `x`)
+
+Similarly:
+
+- `map_int()` returns an integer vector
+- `map_lgl()` returns a logical vector
+- `map_chr()` returns a character vector
+
+---
+
+```{r}
+map_dbl(my.list, length)
+map_chr(my.list, length)
+
+# Base R is a bit more complicated
+as.numeric(sapply(my.list, length)) 
+as.numeric(unlist(lapply(my.list, length)))
+vapply(my.list, FUN=length, FUN.VALUE=numeric(1))
+```
+
+Applying a custom function 
+===
+
+As before (with the apply family), we can of course apply a custom function, and define it "on-the-fly"
+
+```{r}
+library(repurrrsive) # Load Game of Thrones data set
+class(got_chars)
+class(got_chars[[1]])
+names(got_chars[[1]])
+map_chr(got_chars, function(x) { return(x$name) })
+```
+
+Extracting elements
+===
+
+Handily, the map functions all allow the second argument to be an integer or string, and treat this internally as an appropriate extractor function
+
+```{r}
+map_chr(got_chars, "name")
+map_lgl(got_chars, "alive")
+```
+
+---
+
+Interestingly, we can actually do the following in base R: `` `[`() `` and `` `[[`() `` are functions that act in the following way for an integer `x` and index `i`
+
+- `` `[`(x, i) `` is equivalent to `x[i]`
+- `` `[[`(x, i) `` is equivalent to `x[[i]]`
+
+(This works whether `i` is an integer or a string)
+
+```{r}
+sapply(got_chars, `[[`, "name")
+sapply(got_chars, `[[`, "alive")
+```
+
+<span style="color: blue">Part III</span>
+===
+
+<span style="color: blue">*`map_dfr()`, `map_dfc()`, `dplyr`*</span>
+
+`map_dfr()` and `map_dfc()`: list in, data frame out
+===
+
+The `map_dfr()` and `map_dfc()` functions iterate a function call over a list or vector, but automatically combine the results into a data frame. They differ in whether that data frame is formed by **r**ow-binding or **c**olumn-binding
+
+```{r}
+map_dfr(got_chars, `[`, c("name", "alive"))
+
+# Base R is much less convenient
+data.frame(name = sapply(got_chars, `[[`, "name"),
+           alive = sapply(got_chars, `[[`, "alive"))
+```
+
+Note: the first example uses  **extra arguments**; the map functions work just like the apply functions in this regard
+
+`dplyr`
+===
+
+The `map_dfr()` and `map_dfc()` functions actually depend on another package called the `dplyr`, hence require the latter to be installed
+
+What is `dplyr`? It is another tidyverse package that is very useful for data frame computations. You'll learn more soon, but for now, you can think of it as providing the tidyverse alternative to the base R functions `subset()`, `split()`, `tapply()`
+
+`filter()`: subset rows based on a condition
+===
+
+```{r}
+head(mtcars) # Built in data frame of cars data, 32 cars x 11 variables
+filter(mtcars, (mpg >= 20 & disp >= 200) | (drat <= 3))
+
+# Base R is just as easy with subset(), more complicated with direct indexing
+subset(mtcars, (mpg >= 20 & disp >= 200) | (drat <= 3))
+mtcars[(mtcars$mpg >= 20 & mtcars$disp >= 200) | (mtcars$drat <= 3), ]
+```
+
+`group_by()`: define groups of rows based on columns or conditions
+===
+
+```{r}
+head(group_by(mtcars, cyl), 2)
+```
+
+- This doesn't actually change anything about the way the data frame looks
+- Only difference is that when it prints, we're told about the groups
+- But it will play a big role in how `dplyr` functions act on the data frame
+
+`summarize()`: apply computations to (groups of) rows of a data frame
+===
+
+```{r}
+# Ungrouped
+summarize(mtcars, mpg = mean(mpg), hp = mean(hp))
+
+# Grouped by number of cylinders
+summarize(group_by(mtcars, cyl), mpg = mean(mpg), hp = mean(hp))
+```
+
+Note: the use of `group_by()` makes the difference here 
+
+---
+
+```{r}
+# Base R, ungrouped calculation is not so bad
+c("mpg" = mean(mtcars$mpg), "hp" = mean(mtcars$hp))
+
+# Base R, grouped calculation is getting a bit ugly
+cbind(tapply(mtcars$mpg, INDEX=mtcars$cyl, FUN=mean),
+      tapply(mtcars$hp, INDEX=mtcars$cyl, FUN=mean))
+
+sapply(split(mtcars, mtcars$cyl), FUN=function(df) {
+  return(c("mpg" = mean(df$mpg), "hp" = mean(df$hp)))
+})
+
+aggregate(mtcars[, c("mpg", "hp")], by=list(mtcars$cyl), mean)
+```
+
+Summary
+===
+
+- The tidyverse is a collection of packages for common data science tasks
+- `purrr` is one such package that provides a consistent family of iteration functions
+- `map()`: list in, list out
+- `map_dbl()`, `map_lgl()`, `map_chr()`: list in, vector out (of a particular data type)
+- `map_dfr()`, `map_dfc()`: list in, data frame out (row-binded or column-binded)
+- `dplyr` is another such package that provides functions for data frame computations
+- `filter()`: subset rows based on a condition
+- `group_by()`: define groups of rows according to a condition
+- `summarize()`: apply computations across groups of rows

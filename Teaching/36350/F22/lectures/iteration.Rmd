@@ -1,0 +1,382 @@
+---
+title: "Indexing and Iteration"
+author: "Statistical Computing, 36-350"
+date: "Tuesday September 6, 2022"
+---
+
+Last week: R basics
+===
+
+- We write programs by composing functions to manipulate data
+- The basic data types let us represent Booleans, numbers, and characters
+- Data structures let us group together related values 
+- Vectors let us group values of the same type
+- Arrays add multi-dimensional structure to vectors
+- Matrices act like you'd hope they would
+- Lists let us combine different types of data
+- Data frames are hybrids of matrices and lists, allowing each column to have a different data type
+
+<span style="color: blue">Part I</span>
+===
+
+<span style="color: blue">*Indexing*</span>
+
+How R indexes vectors, matrices, lists
+===
+
+There are 3 ways to index a vector, matrix, data frame, or list in R:
+
+1. Using explicit integer indices (or negative integers)
+2. Using a Boolean vector (often created on-the-fly)
+3. Using names
+
+Note: in general, we have to set the names ourselves. Use `names()` for vectors and lists, and `rownames()`, `colnames()` for matrices and data frames
+
+Indexing with integers
+===
+
+The most transparent way. Can index with an integer, or integer vector (or negative integer, or negative integer vector). Examples for vectors:
+
+```{r}
+set.seed(33) # For reproducibility
+x.vec = rnorm(6) # Generate a vector of 6 random standard normals
+x.vec
+x.vec[3] # Third element
+x.vec[c(3,4,5)] # Third through fifth elements
+x.vec[3:5] # Same, but written more succintly
+x.vec[c(3,5,4)] # Third, fifth, then fourth element
+```
+
+---
+
+```{r}
+x.vec[-3] # All but third element
+x.vec[c(-3,-4,-5)] # All but third through fifth element
+x.vec[-c(3,4,5)] # Same
+x.vec[-(3:5)] # Same, more succint (note the parantheses!)
+```
+
+---
+
+Examples for matrices:
+
+```{r}
+x.mat = matrix(x.vec, 3, 2) # Fill a 3 x 2 matrix with those same 6 normals,
+                            # column major order
+x.mat
+x.mat[2,2] # Element in 2nd row, 2nd column
+x.mat[5] # Same (note this is using column major order)
+```
+
+---
+
+```{r}
+x.mat[2,] # Second row
+x.mat[1:2,] # First and second rows
+x.mat[,1] # First column
+x.mat[,-1] # All but first column 
+```
+
+---
+
+Examples for lists:
+
+```{r}
+x.list = list(x.vec, letters, sample(c(TRUE,FALSE),size=4,replace=TRUE))
+x.list
+x.list[[3]] # Third element of list
+x.list[3] # Third element of list, kept as a list
+```
+
+---
+
+```{r}
+x.list[1:2] # First and second elements of list (note the single brackets!)
+x.list[-1] # All but first element of list
+```
+
+Note: you will get errors if you try to do either of above commands with double brackets `[[ ]]`
+
+Indexing with booleans
+===
+
+This might appear a bit more tricky at first but is *very useful*, especially when we define a boolean vector "on-the-fly". Examples for vectors:
+
+```{r}
+x.vec[c(F,F,T,F,F,F)] # Third element
+x.vec[c(T,T,F,T,T,T)] # All but third element
+pos.vec = x.vec > 0 # Boolean vector indicating whether each element is positive
+pos.vec
+x.vec[pos.vec] # Pull out only positive elements
+x.vec[x.vec > 0] # Same, but more succinct (this is done "on-the-fly")
+```
+
+Works the same way for lists; in lab, we'll explore logical indexing for matrices
+
+Indexing with names
+===
+
+Indexing with names can also be quite useful. We must have names in the first place; with vectors or lists, use `names()` to set the names
+
+```{r}
+names(x.list) = c("normals", "letters", "bools")
+x.list[["letters"]] # "letters" (third) element 
+x.list$letters # Same, just using different notation
+x.list[c("normals","bools")]
+```
+
+- Though R offers many options for indexing, one has to be careful, as different indexing will return different objects.
+
+```{r}
+class(x.list["normals"]) # This indexing returns a list, same as x.list[1]
+class(x.list[["normals"]]) # This indexing returns a vector, same as x.list[[1]]
+```
+
+
+- We will see indexing by names being especially useful when we talk more about data frames, shortly  
+- In lab, we'll practice using `rownames()` and `colnames()` and named indexing with matrices
+
+<span style="color: blue">Part II</span>
+===
+
+<span style="color: blue">*Control flow (if, else, etc.)*</span>
+
+Control flow
+===
+
+Summary of the control flow tools in R:
+
+- `if()`, `else if()`, `else`: standard conditionals
+- `ifelse()`: conditional function that vectorizes nicely
+- `switch()`: handy for deciding between several options
+
+`if()` and `else`
+===
+
+Use `if()` and `else` to decide whether to evaluate one block of code or another, depending on a condition
+
+```{r}
+x = 0.5
+
+if (x >= 0) {
+  x
+} else {
+  -x
+}
+```
+
+- Condition in `if()` needs to give one `TRUE` or `FALSE` value
+- Note that the `else` statement is optional
+- Single line actions don't need braces, i.e., could shorten above to `if (x >= 0) x else -x`
+
+`else if()`
+===
+
+We can use `else if()` arbitrarily many times following an `if()` statement
+
+```{r}
+x = -2
+
+if (x^2 < 1) {
+  x^2 
+} else if (x >= 1) {
+  2*x-1
+} else {
+ -2*x+1
+}
+```
+
+- Each `else if()` only gets considered if the conditions above it were not `TRUE`
+- The `else` statement gets evaluated if none of the above conditions were `TRUE`
+- Note again that the `else` statement is optional 
+
+Quick decision making
+===
+
+In the `ifelse()` function we specify a condition, then a value if the condition holds, and a value if the condition fails
+
+```{r}
+ifelse(x > 0, x, -x)
+```
+
+One advantage of `ifelse()` is that it vectorizes nicely; we'll see this on the lab
+
+Deciding between many options
+===
+
+Instead of an `if()` statement followed by `elseif()` statements (and perhaps a final `else`), we can use `switch()`. We pass a variable to select on, then a value for each option
+
+```{r}
+type.of.summary = "mode"
+
+switch(type.of.summary,
+       mean=mean(x.vec),
+       median=median(x.vec),
+       histogram=hist(x.vec),
+       "I don't understand")
+```
+
+- Here we are expecting `type.of.summary` to be a string, either "mean", "median", or "histogram"; we specify what to do for each 
+- The last passed argument has no name, and it serves as the `else` clause
+- Try changing `type.of.summary` above and see what happens 
+
+Reminder: Boolean operators
+===
+
+Remember our standard Boolean operators, `&` and `|`. These combine terms elementwise
+
+```{r}
+u.vec = runif(10, -1, 1)
+u.vec
+u.vec[-0.5 <= u.vec & u.vec <= 0.5] = 999 
+u.vec
+```
+
+Lazy Boolean operators
+===
+
+In contrast to the standard Boolean operators, `&&` and `||` give just a single Boolean, "lazily": meaning we terminate evaluating the expression ASAP
+
+```{r}
+(0 > 0) && all(matrix(0,2,2) == matrix(0,3,3)) 
+(0 > 0) && (ThisVariableIsNotDefined == 0) 
+```
+
+- Note R *never* evaluates the expression on the right in each line (each would throw an error)
+- In control flow, we typically just want one Boolean
+- Rule of thumb: use `&` and `|` for indexing or subsetting, and `&&` and `||` for conditionals
+
+<span style="color: blue">Part III</span>
+===
+
+<span style="color: blue">*Iteration*</span>
+
+Iteration
+===
+
+Computers: good at applying rigid rules over and over again. Humans: not so good at this. Iteration is at the heart of programming
+
+Summary of the iteration methods in R:
+
+- `for()`, `while()` loops: standard loop constructs
+- Vectorization: use it whenever possible! Often faster and simpler
+- The apply family of functions: alternative to `for()` loop, these are base R functions
+- The map family of functions: another alternative, very useful, from the `purrr` package
+
+`for()`
+===
+
+A `for()` loop increments a **counter** variable along a vector. It repeatedly runs a code block, called the  **body** of the loop, with the counter set at its current value, until it runs through the vector
+
+```{r}
+n = 10
+log.vec = vector(length=n, mode="numeric")
+for (i in 1:n) {
+  log.vec[i] = log(i)
+}
+log.vec
+```
+
+Here `i` is the counter and the vector we are iterating over is `1:n`. The body is the code in between the braces
+
+Breaking from the loop
+===
+
+We can **break** out of a `for()` loop early (before the counter has been iterated over the whole vector), using `break`
+
+```{r}
+n = 10
+log.vec = vector(length=n, mode="numeric")
+for (i in 1:n) {
+  if (log(i) > 2) {
+    cat("I'm outta here. I don't like numbers bigger than 2\n")
+    break
+  }
+  log.vec[i] = log(i)
+}
+log.vec
+```
+
+Variations on standard `for()` loops
+===
+
+Many different variations on standard `for()` are possible. Two common ones:
+
+- Nonnumeric counters: counter variable always gets iterated over a vector, but it doesn't have to be numeric
+- Nested loops: body of the `for()` loop can contain another `for()` loop (or several others)
+
+```{r}
+for (str in c("Prof", "Ale", "Rinaldo")) {
+  cat(paste(str, "declined to comment\n"))
+}
+
+for (i in 1:4) {
+  for (j in 1:i^2) {
+    cat(paste(j,""))
+  }
+  cat("\n")
+}
+```
+
+`while()`
+===
+
+A `while()` loop repeatedly runs a code block, again called the **body**, until some condition is no longer true
+
+```{r}
+i = 1
+log.vec = c()
+while (log(i) <= 2) {
+  log.vec = c(log.vec, log(i))
+  i = i+1
+}
+log.vec
+```
+
+`for()` versus `while()`
+===
+
+- `for()` is better when the number of times to repeat (values to iterate over) is clear in advance
+
+- `while()` is better when you can recognize when to stop once you're there, even if you can't guess it to begin with
+
+- `while()` is more general, in that every `for()` could be replaced with a `while()` (but not vice versa)
+
+`while(TRUE)` or `repeat`
+===
+
+`while(TRUE)` and `repeat`: both do the same thing, just repeat the body indefinitely, until something causes the flow to break. Example (try running in your console):
+
+```{r, eval=FALSE}
+repeat {
+  ans = readline("Who is the best Professor of Statistics at CMU? ")
+  if (ans == "Ale" || ans == "Rinaldo" || ans == "Alessandro") {
+    cat("Yes! You get an 'A'.")
+    break
+  }
+  else {
+    cat("Wrong answer!\n")
+  } 
+}
+```
+
+Avoiding explicit iteration
+===
+
+- Warning: some people have a tendency to **overuse** `for()` and `while()` loops in R
+- They aren't always needed. Remember vectorization should be used whenever possible
+- We'll emphasize this on the lab, and try to hit upon it throughout the course
+
+Summary
+===
+
+- Three ways to index vectors, matrices, data frames, lists: integers, Booleans, names
+- Boolean on-the-fly indexing can be very useful
+- Named indexing will be especially useful for data frames
+- Indexing lists can be a bit tricky (beware of the difference between `[ ]` and `[[ ]]`)
+- `if()`, `elseif()`, `else`: standard conditionals
+- `ifelse()`: shortcut for using `if()` and `else` in combination
+- `switch()`: shortcut for using `if()`, `elseif()`, and `else` in combination
+- `for()`, `while()`, `repeat`: standard loop constructs
+- Don't overuse explicit `for()` loops, vectorization is your friend!
+- `apply()` and `**ply()`: can also be very useful (we'll see them later)

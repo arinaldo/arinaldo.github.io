@@ -1,0 +1,563 @@
+<h2>References</h2>
+
+
+<b>Recommended Books </b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+	</table>
+   <ul>
+       <li> Statistics for High-Dimensional Data: Methods, Theory and
+       Applications, by P. Buhlman and S. van de Geer, Springer, 2011.
+       <li> Statistical Learning with Sparsity: The Lasso and Generalizations, by
+       T. Hastie, R. Tibshirani and M Wainwright, Chapman & Hall, 2015.
+       <li> Introduction to High-Dimensional Statistics, by C. Giraud, Chapman &
+       Hall, 2015.
+       <li> Testing Statistical Hypotheses, by Lehmann and Romano, 2005, Spinger,
+       3rd Edition.
+       <li> Asymptotic Statistics, by A. van der Vaart, Springer, 2000.
+    <li> Concentration Inequalities: A Nonasymptotic Theory of Independencei, by S.
+Boucheron, G. Lugosi and P. Massart, Oxford University Press, 2013.
+<li> Rigollet, P. (2015) High-Dimensional Statistics - Lecture Notes 
+<a
+    href="https://ocw.mit.edu/courses/mathematics/18-s997-high-dimensional-statistics-spring-2014/lecture-notes/">Lecture
+    Notes</a> for the MIT
+course 18.S997.
+ 	</ul>
+
+	<br><br>
+
+<b>Lecture 1, Mon Aug 29</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+<!--
+Some applications of concentration inequalities in high-dimensional statistics:
+					    <ul>
+						<li> Theorem 1 in M. J.
+						    Wainwright (2009), Sharp
+						    thresholds for noisy and
+						    high-dimensional recovery of
+						    sparsity using
+						    $\ell_1$-constrained
+						    quadratic programming
+						    (Lasso). IEEE Transactions
+						    on Information Theory,
+						    55:2183--2202.
+						    <li> Theorem 5.2 in A simple proof of the
+							restricted isometry
+							property for random
+							matrices
+							R Baraniuk, M Davenport,
+							R DeVore, M Wakin
+							Constructive
+							Approximation 28 (3),
+							253-263
+							<li> For the covariance
+							    estimation example
+							    see HW1.
+					    </ul>
+					    -->
+
+To read more about what I referred to as the "master theorem on the asymptotics
+of  parametric models" see <a href="./ch4.pdf">these notes</a> by <a
+    href="https://www.stat.washington.edu/jaw/">Jon Wellner</a>. In particular,
+I highly recommend looking at the excellent notes he made for
+the sequence of <a
+    href="https://www.stat.washington.edu/jaw/COURSES/580s/580s.html">three
+    classes on theoretical statistics</a> he has been teaching at the Unievrsity
+of Washington.
+
+<br><br>
+
+	Parameter consistency and central limit theorems for models with increasing
+	dimension d (but still d < n): 				    
+<ul>
+    <li> Wasserman, L, Kolar, M. and Rinaldo, A. (2014). Berry-Esseen bounds for
+	estimating undirected graphs, Electronic Journal of Statistics, 8(1),
+	1188-1224.
+	<li> Fan, J. and Peng, H. (2004). Nonconcave penalized likelihood with a
+	    diverging number of parameters, the Annals of Statistics, 32(3),
+	    928-961.
+    <li> Portnoy, S. (1984). Asymptotic Behavior of M-Estimators of p
+	Regression, 
+	Parameters when p^2/n is Large. I. Consistency, tha Annals of
+	Statistics, 12(4), 1298--1309.
+	<li> Portnoy, S. (1985). Asymptotic Behavior of M Estimators of p Regression Parameters
+	    when p^2/n is Large; II. Normal Approximation, the Annals of
+	    Statistics, 13(4), 1403-1417.
+	    <li> Portnoy, S. (1988). Asymptotic Behavior of Likelihood Methods
+		for Exponential Families when the Number of Parameters Tends to
+		Infinity, tha Annals of Statistics, 16(1), 356-366.
+
+   </ul>
+
+   Some central limit theorem results in increasing dimension (in the second mini we will
+   see more specialized and stronger results).
+
+   <ul>
+       <li> Chernozhukov, V.,  Chetverikov, D. and Kato, K. (2016).  Central
+       Limit Theorems and Bootstrap in High Dimensions, <a
+	   href="http://arxiv.org/abs/1412.3661">arxiv</a>  
+   <li> Bentkus, V. (2003). On the dependence of the Berry–Esseen bound on
+       dimension, Journal of Statistical Planning and Inference, 113,
+	385-402.
+	    <li> Portnoy, S. (1986). On the central limit theorem in R p when
+		$p \rightarrow \infty$, Probability Theory and Related Fields,
+		73(4),  571-583.
+   </ul>
+
+   <br><br>
+
+
+<br><br>
+
+
+<b>Lecture 2, Wed Aug 31</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+Some references to concentration inequalities:
+<ul>
+    <li> Concentration Inequalities: A Nonasymptotic Theory of Independencei, by S.
+Boucheron, G. Lugosi and P. Massart, Oxford University Press, 2013.
+<li> Concentration Inequalities and Model Selection, by P. Massart, Springer Lecture
+Notes in Mathematics, vol 1605, 2007.
+<li> The Concentration of Measure Phenomenon, by M. Ledoux, 2005, AMS.
+<li> Concentration of Measure for the Analysis of Randomized Algorithms, by D.P.
+Dubhashi and A, Panconesi, Cambridge University Press, 2012.
+<li>  R. Vershynin, Introduction to the non-asymptotic analysis of random
+matrices. In: Compressed Sensing: Theory and Applications, eds. Yonina Eldar and
+Gitta Kutyniok. Cambridge University Press
+</ul>
+
+For a comprehensive treatment of sub-gaussian variables and processes (and more)
+see:
+<uL>
+    <li> Metric Characterization of Random Variables and Random Processes, by V. V.
+Buldygin, AMS, 2000.
+<li> Introduction to the non-asymptotic analysis of random matrices, by R. Vershynin,
+Chapter 5 of: Compressed Sensing, Theory and Applications. Edited by Y. Eldar
+and G. Kutyniok. Cambridge University Press, 210–268, 2012. <a
+    href="http://www-personal.umich.edu/~romanv/papers/non-asymptotic-rmt-plain.pdf">pdf</a>
+</ul>
+
+References for Chernoff bounds for Bernoulli (and their multiplicative forms):
+<ul>
+    <li> Check out the <a
+	href="https://en.wikipedia.org/wiki/Chernoff_bound">Wikipedia page.</a>
+    <li>    
+A guided tour of chernoff bounds, by T. Hagerup and C. R\"{u}b, Information and
+Processing Letters, 33(6), 305--308, 1990.
+<li> Chapter 4 of the book Probability and Computing: Randomized Algorithms and
+Probabilistic Analysis, by M. Mitzenmacher and E. Upfal, Cambridge University
+Press, 2005.
+<li> The Probabilistic Method, 3rd Edition, by N. Alon and J. H. Spencer, Wiley,
+2008, Appendix A.1.
+</ul>
+
+Finally, <a href="./Hoeffding_Classic.pdf">here</a> is the traditional bound on the mgf of a centered bounded random
+variable (due to Hoeffding), implying that bounded centered variables are
+sub-Guassian. It should be compared to the proof given in class. 
+
+   <br><br>
+
+
+<br><br>
+
+
+
+
+<b>Lecture 4, Mon Sep 12</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+For an example of the improvement afforded by Bernstein versus Hoeffding, see
+Theorem 7.1 of 
+<ul>
+    <li> 
+ László Györfi, Michael Kohler, Adam Krzyżak, Harro Walk (2002). A
+ Distribution-Free Theory of Nonparametric Regression, Springer. 
+</ul>
+available <a href="http://link.springer.com/book/10.1007%2Fb97848">here</a>.
+By the way, this is an excellent book.
+
+For details on the derivation of concentration inequality for quadratic forms of
+Gaussians, see 
+<ul>
+    <li> Example 2.12 in Concentration Inequalities: A Nonasymptotic Theory of Independencei, by S.
+Boucheron, G. Lugosi and P. Massart, Oxford University Press, 2013.
+<li> Lemma 1 in Laurent, B. and Massart, P. (2000). Adaptive estimation of a quadratic
+functional by model selection, Annals of Statistics, 28(5), 1302-1338.
+</ul>
+
+
+For the Hanson-Wright inequality, see 
+<ul>
+    <li>  Rudelson, M., and Vershynin, R. (2013). Hanson-Wright inequality and
+    sub-gaussian concentration. Electron. Commun. Probab.,
+    18(82), 1- 9.
+</ul>
+I strongly encourage to read the paper!
+
+   <br><br>
+
+
+<br><br>
+
+
+
+<b>Lecture 7, Wed Sep 21</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    To read up about matrix concentration inequalities, I recommend:
+
+    <ul>
+    <li> Tropp, J. (2012). User-friendly tail bounds for sums of random matrices,
+    Found. Comput. Math., Vol. 12, num. 4, pp. 389-434, 2012.
+    <li> Tropp, J. (2015). An Introduction to Matrix Concentration Inequalities,
+    Found. Trends Mach. Learning, Vol. 8, num. 1-2, pp. 1-230
+</ul>
+
+An excellent paper on the linear regression model. Recall: you almost never can make
+the assumption of linearity and the X is random!!
+
+    <ul>
+    <li> Andreas Buja, Richard Berk, Lawrence Brown, Edward George,
+    Emil Pitkin, Mikhail Traskin, Linda Zhao and Kai Zhang (2015).
+    Models as Approximations — A Conspiracy of Random Regressors and Model
+    Deviations Against Classical Inference in Regression.  <a
+	href="http://www-stat.wharton.upenn.edu/~lbrown/Papers/2015b%20Models%20as%20Approximations%20--%20A%20Conspiracy%20of%20Random%20Regressors%20and%20Model%20Deviations%20Against%20Classical%20Inference%20in%20Regression.pdf">pdf</a>
+</ul>
+
+   <br><br>
+
+
+<b>Lecture 9, Wed Sep 28</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    To read about ridge regression and lasso-type estimators a good reference is
+    <ul>
+	<li> Fu, W. and Knight, K. (2000). Asymptotics for lasso-type
+	estimators, The Annals of Statistics, 8(5), 1356-1378.
+	</ul>
+
+	About uniqueness of the lasso (and other interesting properties):
+    <ul>
+	<li> Tibshirani, R. (2013). The lasso problem and uniqueness, EJS, 7,
+	1456-1490.
+	</ul>
+
+	For the use of cross validation in selecting the lasso parameter see:
+	<ul>
+	    <li> Homrighausen, D. and McDonald, D. (2013). The lasso, persistence, and
+	    cross-validation,” Proceedings of the 30th International Conference
+	    on Machine Learning, JMLR W&CP, 28. <a
+		href="http://www.jmlr.org/proceedings/papers/v28/homrighausen13.pdf">pdf</a>	
+	    <li> Homrighausen, D. and McDonald, D. (2013b). Risk consistency of
+	    cross-validation with Lasso- type procedures.
+		<a href="https://arxiv.org/abs/1308.0810">arxiv:1308.0810.</a>	
+	    <li> Chatterjee, S. and  Jafarov, J. (2015). Prediction error of
+	    cross-validated Lasso, 
+		<a href="https://arxiv.org/abs/1502.06291">arxiv:1502.06291</a>	
+	    <li> Chetverikov, D. and Liao Z. (2016). On cross-validated Lasso, 
+		<a href="https://arxiv.org/abs/1502.06291">arxiv:1605.02214</a>	
+	</ul>
+	
+	And for the one standard error rule, which seems to work well in
+	practice (but apparently has no theoretical justification), see
+	these lecture by Ryan Tibshirani:
+	<a href="\http://www.stat.cmu.edu/~ryantibs/datamining/lectures/18-val1-marked.pdf">pdf</a>
+    and <a
+	href="http://www.stat.cmu.edu/~ryantibs/datamining/lectures/19-val2.pdf">pdf</a>.
+
+   <br><br>
+   <br><br>
+
+
+
+<b>Lecture 10, Wed Oct 5</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+For further references on rates for the lasso, restricted eigenvalue conditions,
+ oracle inequalities, etc, see
+<ul>
+       <li> Statistics for High-Dimensional Data: Methods, Theory and
+       Applications, by P. Buhlman and S. van de Geer, Springer, 2011. Chapter 6
+       and Chapter 7.
+       <li>  Belloni A., Chernozhukov, D> and Hansen C. (2010)  Inference for High-Dimensional Sparse Econometric Models,
+       Advances in Economics and Econometrics, ES World Congress 2010, <a
+	   href="https://arxiv.org/pdf/1201.0220v1.pdf">arxiv link</a>
+       <li> Bickel, P. J., Y. Ritov, and A. B. Tsybakov (2009), Simultaneous
+       analysis of Lasso and Dantzig selector,
+      Annals of Statistics, 37(4), 1705–1732. 
+   </ul>
+
+Someone asked about references for selective inference. Here is a nicely
+compiled list of papers from the <a
+    href="http://www.math.wustl.edu/~kuffner/WHOA-PSI.html">WHOA-PSI 2016</a> website, a very recent conference on this topic.
+
+   <br><br>
+   <br><br>
+
+<b>Lecture 11, Mon Oct 10</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+For persistence, see
+
+
+<ul>
+    <li> Greenshtein and Ritov (2007). Persistence in high-dimensional linear
+    predictor selection and the virtue of overparametrizationi, Bernoulli,
+    10(6), 971-988.
+       <li>  For an alternative proof of persietence see: Jon Wellner, Persistence: Alternative proofs of some results of
+       Greenshtein and Ritov. <a
+	   href="https://www.stat.washington.edu/jaw/RESEARCH/TALKS/newt.pdf">pdf</a>
+   </ul>
+
+
+   <br><br>
+   <br><br>
+
+<b>Lecture 12, Wed Oct 12</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+Good references on perturbation theory are 
+<ul>
+    <li> Stewart and Sun (1990). Matrix Perturbation Theory, Academic Press.
+    (Start with the CS decomposition and the move on to principal angles and
+    then perturbation theory results).
+    <li> Parlett, B.N. (1998). The Symmetric Eigenvalue Problem, Society for
+    Industrial and Applied Mathematics.
+   </ul>
+   
+   Below is a paper that very partially addresses the question in class about
+   how can we know whether the eigengap condition holds. 
+   <ul>
+   <li> Berthet, Q. and Rigollet, P. (2013). Optimal detection of sparse
+   principal components in high dimension, Annals of Statistics,  41(1), 1780–1815.
+   </ul>
+   <br><br>
+
+
+<b>Lecture 13, Mon Oct 17</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    For references on sparse PCA, see the following paper by Jing Lei and Vince
+    Vu and references therein
+<ul>
+    <li> Lei, J. and Vu, V. (2015). Sparsistency and Agnostic Inference in
+    Sparse PCA. Annals of Statistics, 43(1), 299-322.
+   </ul>
+   <br><br>
+
+
+
+<b>Lecture 14, Wed Oct 19</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    Good references on ULLN:
+    <ul>  
+	<li>  Devroye, L., Gyorfi, L. and Lugosi, G. (1997). A Probabilistic Theory of
+    Pattern Recognition, Springer.
+    <li> Koltchinskii, V. (2011). Oracle Inequalities in Empirical Risk Minimization and Sparse Recovery
+    Problems, Springer Lecture Notes in Mathematics, 2033.
+    
+</ul>
+
+   <br><br>
+
+
+
+<b>Lecture 16, Mon Oct 26</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    For relative VC deviations see:
+<ul>
+    <li> M. Anthony and J. Shawe-Taylor, "A result of Vapnik with applica-
+    tions," Discrete Applied Mathematics, vol. 47, pp. 207-217, 1993.
+    <li> V. N. Vapnik and A. Ya. Chervonenkis, "On the uniform convergence of
+    rel- ative frequencies of events to their probabilities," Theory of
+    Probabil- ity and its Applications, vol. 16, pp. 264-280, 1971.
+   </ul>
+
+   For Talagrand's inequality, see, e.g.,
+   <ul>
+    <li> Koltchinskii, V. (2011). Oracle Inequalities in Empirical Risk Minimization and Sparse Recovery
+    Problems, Springer Lecture Notes in Mathematics, 2033.
+<li> The Concentration of Measure Phenomenon, by M. Ledoux, 2005, AMS.
+   </ul>
+
+   <br><br>
+
+
+<b>Lecture 19, Mon Nov 7</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    For Orlicz norms and processes, see:
+<ul>
+    <li>  Chapter 2.2. in Aad W. van der Vaart, Jon A. Wellner (1996). Weak Convergence and
+    Empirical Processes
+    <li> Section 11.1 in Talagrand, M. and Ledoux, M. (1991). Probability in
+    Banach Spaces, Springer. 
+   </ul>
+
+
+   <br><br>
+
+<b>Lecture 20, Mon Nov 7</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    For Local Radamacher Comlexiti
+<ul>
+    <li>  Peter L. Bartlett, Olivier Bousquet, and Shahar Mendelson (2005).
+    Local Rademacher complexities, Annals of Statistics,  33(4)
+    1497-1537.
+    <li> Koltchinskii, V. (2011). Oracle Inequalities in Empirical Risk Minimization and Sparse Recovery
+    Problems, Springer Lecture Notes in Mathematics, 2033.
+    <li> Koltchinskii, V. (2006). 2004 IMS Medallion Lecture: Local Rademacher complexities and oracle
+    inequalities in risk minimization, Annals of Statistics, 34(6), 2593–2656.
+   </ul>
+
+   Another good reference for non-parametric least squares is
+   <ul>
+       <li> van der Geer, S. (2009). Empirical Processes in M-Estimation,
+       Cambridge University Press.
+   </ul>
+
+   <br><br>
+
+<b>Lecture 22, Mon Nov 14</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    To see that metric entropy of the star-hull of a class of function is, in
+    most cases, of the same order
+    as the metric entropy of the class itself, see, e.g., Lemma 4.5 in 
+<ul>
+    <li> Mendelson, S. (2002). Improving the sample complexity using global
+    data. IEEE Trans. Inform. Theory 48 1977–1991.
+   </ul>
+
+   <br><br>
+
+
+<b>Lecture 24, Mon Nov 21</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    References for U-Statistics (there is a huge literature on this topic; these
+    are just few references):
+<ul>
+    <li> Chapter 11 and especially Chapter 12 of van der Vaart, A. (1998).
+    Asymptotic Statistics, Cambridge Series in Statistical and Probabilistic
+    Mathematics.  
+    <li> Chapter 5 of Serfling, R.J.  (1980). Approximation Theorems of Mathematical
+    Statistics, John Wiley and Sons.  
+    <li> For an excellent and readable treatment, see: Lee, A.J. (1990). U-Statistics: Theory and Practice, CRC Press.
+    <li> This set of <a href="https://www.math.ucla.edu/~tom/Stat200C/Ustat.pdf">lecture
+	notes</a> by Thomas Ferguson. 
+   </ul>
+
+   <br><br>
+
+
+
+<b>Lecture 26, Mon Nov 21</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    Here is an article that gives a CLT for U-statistics with increasing order:
+    <ul>
+    <li> Mentch, L. and Hooker, G. (2015). Quantifying Uncertainty in Random
+    Forests via Confidence Intervals and Hypothesis Tests, available on the <a
+	href="">arxiv: 1404.6473</a>.
+   </ul>
+
+   For concentration inequalities for U-statistics, see
+   <ul>
+       <li> Hoeffding, W. (1963). 
+       Probability Inequalities for Sums of Bounded Random Variables, Journal of
+       the American Statistical Association, 58(301), 13-30.
+       <li> M. A. Arcones. A bernstein-type inequality for u-statistics and
+       u-processes. Statistics & probability letters, 22(3):239–247, 1995.
+       <li> Peña, V.d.l. and   Evarist, G. (1999). Decoupling
+       From Dependence to Independence, Springer.
+   </ul>
+
+   <br><br>

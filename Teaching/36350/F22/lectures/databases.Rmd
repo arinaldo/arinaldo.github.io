@@ -1,0 +1,389 @@
+---
+title: "Relational Databases"
+author: "Statistical Computing, 36-350"
+date: "Tuesday November 29, 2022"
+---
+
+Last week: Debugging 
+===
+
+- Debugging involves diagnosing your code when you encounter an error or unexpected behavior
+    * Step 0: Reproduce the error
+    * Step 1: Characterize the error
+    * Step 2: Localize the error
+    * Step 3: Modify the code
+- `traceback()`, `cat()`, `print()`: manual debugging tools
+- `browser()`: interactive debugging tool
+- Testing involves writing additional code to ensure your functions behave as expected
+- Compared to debugging, it is proactive, rather than reactive
+- `assert_that()`, `test_that()`: tools for assertions and unit tests
+- **Important**: it's hard to teach good coding practices. The best way to learn is to implement these yourself from now onward!
+
+<span style="color: blue">Part I</span>
+===
+
+<span style="color: blue">*SQL queries*</span>
+
+What is a database?
+===
+
+It helps define a few things "from the ground up":
+
+- A **field** is a variable/quantity of interest 
+- A **record** is a collection of **fields**
+- A **table** is a collection of records which all have the same fields (with different values)
+- A **database** is a collection of tables
+
+Databases versus data frames
+===
+
+Data frames in R are tables in database lingo
+
+R jargon | Database jargon
+--------|----------------
+column  | field
+row     | record
+data frame | table
+types of the columns | table schema
+collection of data frames | database
+
+Why do we need database software?
+===
+
+- **Size**
+    - R keeps its data frames in memory
+    - Industrial databases can be much bigger
+    - Must work with selected subsets
+    
+- **Speed**
+    - Smart people have worked very hard making relational databases efficient 
+    - (Like 2014 Turing award winner Michael Stonebraker!)
+    
+- **Concurrency**
+    - Many users accessing the same database simultaneously
+    - Potential for trouble (two users want to change the same record at once)
+    
+Client-server model and SQL
+===
+
+- Databases live on a **server**, which manages them
+- Users interact with the server through a **client** program
+- Lets multiple users access the same database simultaneously
+- **SQL** (**structured query language**) is the standard for database software
+- Most basic actions are **queries**, like row/column selections on an R data frame
+- SQLite is a simpler, file-based system that we will be working with this week
+
+Connecting R to SQLite
+===
+
+SQL is its own language, independent of R. For simplicity, we're going to learn how to run SQL queries through R
+
+First, we need to install the packages `DBI`, `RSQLite`, then we load them into our R session with `library()`
+
+Also, we need a database file: to run the following examples, download the file up at https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/lahman2016.sqlite, and save it in your R working directory
+
+```{r}
+library(DBI)
+library(RSQLite)
+drv = dbDriver("SQLite")
+con = dbConnect(drv, dbname="lahman2016.sqlite")
+```
+
+The object `con` is now a persistent connection to the database `lahman2016.sqlite`
+
+Listing what's available
+===
+
+```{r}
+dbListTables(con) # List tables in our database 
+dbListFields(con, "Batting") # List fields in Batting table
+dbListFields(con, "Pitching") # List fields in Pitching table
+```
+
+Importing a table as a data frame
+===
+
+```{r}
+batting = dbReadTable(con, "Batting") 
+class(batting) 
+dim(batting)
+```
+
+Now we could go on and perform R operations on `batting`, since it's a data frame
+
+This week, we'll use this route primarily to check our work in SQL; in general, should try to do as much in SQL as possible, since it's more efficient and can be simpler
+
+`SELECT`
+===
+
+Main tool in the SQL language: `SELECT`, which allows you to perform queries on a particular table in a database. It has the form:
+
+```
+SELECT columns 
+  FROM table
+  WHERE condition
+  GROUP BY columns
+  HAVING condition
+  ORDER BY column [ASC | DESC]
+  LIMIT offset, count;
+```
+
+`WHERE`, `GROUP BY`, `HAVING`, `ORDER BY`, `LIMIT` are all optional 
+
+Examples
+===
+
+To pick out five columns from the table "Batting", and only look at the first 10 rows:
+
+```{r}
+dbGetQuery(con, paste("SELECT playerID, yearID, AB, H, HR",
+                      "FROM Batting",
+                      "LIMIT 10"))
+```
+
+This is our very first successful SQL query (congratulations!)
+
+---
+
+To replicate this simple command on the imported data frame:
+
+```{r}
+batting[1:10, c("playerID", "yearID", "AB", "H", "HR")]
+```
+
+(Note: this was simply to check our understanding, and we wouldn't actually want to do this on a large database, since it'd be much more inefficient to first read into an R data frame, and then call R commands)
+
+`ORDER BY`
+===
+
+We can use the `ORDER BY` option in `SELECT` to specify an ordering for the rows
+
+Default is ascending order; add `DESC` for descending
+
+```{r}
+dbGetQuery(con, paste("SELECT playerID, yearID, AB, H, HR",
+                      "FROM Batting",
+                      "ORDER BY HR DESC",
+                      "LIMIT 10"))
+```
+
+<span style="color: blue">Part II</span>
+===
+
+<span style="color: blue">*SQL computations*</span>
+
+`SELECT`, expanded
+===
+
+In the first line of `SELECT`, we can directly specify computations that we want performed
+
+```
+SELECT columns or computations
+  FROM table
+  WHERE condition
+  GROUP BY columns
+  HAVING condition
+  ORDER BY column [ASC | DESC]
+  LIMIT offset, count;
+```
+
+Main tools for computations: `MIN`, `MAX`, `COUNT`, `SUM`, `AVG`
+
+Examples
+===
+
+To calculate the average number of homeruns, and average number of hits:
+
+```{r}
+dbGetQuery(con, paste("SELECT AVG(HR), AVG(H)",
+                      "FROM Batting"))
+```
+
+To replicate this simple command on an imported data frame:
+
+```{r}
+mean(batting$HR, na.rm=TRUE)
+mean(batting$H, na.rm=TRUE)
+```
+
+`GROUP BY`
+===
+
+We can use the `GROUP BY` option in `SELECT` to define aggregation groups
+
+```{r}
+dbGetQuery(con, paste("SELECT playerID, AVG(HR)",
+                      "FROM Batting",
+                      "GROUP BY playerID",
+                      "ORDER BY AVG(HR) DESC",
+                      "LIMIT 10"))
+```
+
+(Note: the order of commands here matters; try switching the order of `GROUP BY` and `ORDER BY`, you'll get an error)
+
+`AS`
+===
+
+We can use `AS` in the first line of `SELECT` to rename computed columns 
+
+```{r}
+dbGetQuery(con, paste("SELECT yearID, AVG(HR) as avgHR",
+                      "FROM Batting",
+                      "GROUP BY yearID",
+                      "ORDER BY avgHR DESC",
+                      "LIMIT 10"))
+```
+
+`WHERE`
+===
+
+We can use the `WHERE` option in `SELECT` to specify a subset of the rows to use (*pre-aggregation/pre-calculation*)
+
+```{r}
+dbGetQuery(con, paste("SELECT yearID, AVG(HR) as avgHR",
+                      "FROM Batting",
+                      "WHERE yearID >= 1990",
+                      "GROUP BY yearID",
+                      "ORDER BY avgHR DESC",
+                      "LIMIT 10"))
+```
+
+`HAVING`
+===
+
+We can use the `HAVING` option in `SELECT` to specify a subset of the rows to display (*post-aggregation/post-calculation*)
+
+```{r}
+dbGetQuery(con, paste("SELECT yearID, AVG(HR) as avgHR",
+                      "FROM Batting",
+                      "WHERE yearID >= 1990",
+                      "GROUP BY yearID",
+                      "HAVING avgHR >= 4",
+                      "ORDER BY avgHR DESC"))
+```
+
+<span style="color: blue">Part III</span>
+===
+
+<span style="color: blue">*SQL joins*</span>
+
+`SELECT`, expanded
+===
+
+In the second line of `SELECT`, we can specify more than one data table using `JOIN`
+
+```
+SELECT columns or computations
+  FROM tabA JOIN tabB USING(key)
+  WHERE condition
+  GROUP BY columns
+  HAVING condition
+  ORDER BY column [ASC | DESC]
+  LIMIT offset, count;
+```
+
+`JOIN`
+===
+
+There are 4 options for `JOIN`
+
+- `INNER JOIN` or `JOIN`: retain just the rows each table that match the condition
+- `LEFT OUTER JOIN` or `LEFT JOIN`: retain all rows in the first table, and just the rows in the second table that match the condition
+- `RIGHT OUTER JOIN` or `RIGHT JOIN`: retain just the rows in the first table that match the condition, and all rows in the second table
+- `FULL OUTER JOIN` or `FULL JOIN`: retain all rows in both tables
+
+Fields that cannot be filled in are assigned NA values
+
+---
+
+It helps to visualize the join types:
+
+![](https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/lectures/join_inner.png)
+![](https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/lectures/join_left.png)
+![](https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/lectures/join_right.png)
+![](https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/lectures/join_full.png)
+
+Examples
+===
+
+Suppose we want to figure out the average salaries of the players with the top 10 highest homerun averages. Then we'd have to combine the two tables below
+
+```{r}
+dbGetQuery(con, paste("SELECT yearID, teamID, lgID, playerID, HR",
+                      "FROM Batting", 
+                      "ORDER BY playerID",
+                      "LIMIT 10"))
+
+dbGetQuery(con, paste("SELECT *",
+                      "FROM Salaries",
+                      "ORDER BY playerID",
+                      "LIMIT 10"))
+```
+
+---
+
+We can use a `JOIN` on the pair: `yearID`, `playerID`
+
+```{r}
+dbGetQuery(con, paste("SELECT yearID, playerID, salary, HR",
+                      "FROM Batting JOIN Salaries USING(yearID, playerID)",
+                      "ORDER BY playerID",
+                      "LIMIT 10"))
+```
+
+Note that here we're missing 3 David Aardsma's records (i.e., the `JOIN` discarded 3 records)
+
+---
+
+We can replicate this using `merge()` on imported data frames:
+
+```{r}
+batting = dbReadTable(con, "Batting") 
+salaries = dbReadTable(con, "Salaries") 
+merged = merge(x=batting, y=salaries, by.x=c("yearID","playerID"), 
+               by.y=c("yearID","playerID"))
+merged[order(merged$playerID)[1:10], 
+       c("yearID", "playerID", "salary", "HR")]
+```
+
+---
+
+For demonstration purposes, we can use a `LEFT JOIN` on the pair: `yearID`, `playerID`
+
+```{r}
+dbGetQuery(con, paste("SELECT yearID, playerID, salary, HR",
+                      "FROM Batting LEFT JOIN Salaries USING(yearID, playerID)",
+                      "ORDER BY playerID",
+                      "LIMIT 10"))
+```
+
+Now we can see that we have all 9 of David Aardsma's original records from the Batting table (i.e., the `LEFT JOIN` kept them all, and just filled in an NA value when it was missing his salary)
+
+Currently, `RIGHT JOIN` and `FULL JOIN` are not implemented in the `RSQLite` package
+
+---
+
+Now, as to our original question (average salaries of the players with the top 10 highest homerun averages):
+
+```{r}
+dbGetQuery(con, paste("SELECT playerID, AVG(HR), AVG(salary)",
+                      "FROM Batting JOIN Salaries USING(yearID, playerID)",
+                      "GROUP BY playerID",
+                      "ORDER BY Avg(HR) DESC",
+                      "LIMIT 10"))
+```
+
+Summary
+===
+
+R jargon | Database jargon | Tidyverse
+--------|------------------|----------
+column  | field |
+row     | record |
+data frame | table |
+types of the columns | table schema |
+collection of data frames | database |
+conditional indexing | `SELECT`, `FROM`, `WHERE`, `HAVING` | `dplyr::select()`, `dplyr::filter()`
+`tapply()` or other means | `GROUP BY` | `dplyr::group_by()`
+`order()` | `ORDER BY` | `dplyr::arrange()`
+`merge()` | `INNER JOIN` or just `JOIN` | `tidyr::inner_join()`

@@ -1,0 +1,9 @@
+I have run into trouble knitting some of the lecture and lab R Markdown files because RStudio complained that the library EDWAR was missing. To load EDWAR:
+
+install.packages("devtools")
+devtools::install_github("rstudio/EDAWR")
+# or just remotes::install_github("rstudio/EDAWR")
+library(EDAWR) 
+
+
+

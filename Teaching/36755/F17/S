@@ -1,0 +1,554 @@
+Reading material for the class will be assigned from:
+<ul>
+    <li> [W] High-dimensional statistics: A non-asymptotic viewpoint, by M.
+    Wainwright. This is a book draft and the material given out in class is not
+    to be disseminated.
+</ul>
+
+<br><br>
+<table id="bord" style="width: 80%;" border="1">
+      <tr id="bord">
+	      <td colspan="5" style="padding: 5px; text-align:
+	      center;"><b>36-755, Fall 2016<br> Class Schedule</b> 
+		    </tr>
+		    <th>Date</th>
+		    <th>Lecture Topic</th>
+		    <th>Readings</th>
+		    <th>Scribe Notes</th>
+		    <th>Notes</th>
+
+<tr id="bord">
+			        <td id="bord" style="width: 14%;">Aug
+				    28, M</td>
+				    <td id="bord" style="width:
+				    25%;"> Introduction: high-dimensional
+				    statistical models <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W] Chapter 1
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+ <!-- <a href="scribe/Sep_01_High_dimensional_statistics_1_lec01.pdf">pdf</a>a
+  -->
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <!--<a  href="./HW01_788_F15.pdf">HW1</a> is out. -->
+<tr id="bord">
+			        <td id="bord" style="width: 14%;">Aug
+				    30, M</td>
+				    <td id="bord" style="width:
+				    25%;"> Sub-Gaussian variables <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W] 2.1.1, 2.1.2.
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+ <a href="./Scribed_Lectures/F17_0828.pdf">pdf</a>
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <!--<a  href="./HW01_788_F15.pdf">HW1</a> is out. -->
+
+
+
+<tr id="bord">
+			        <td id="bord" style="width: 14%;">Sep
+				    6, W</td>
+				    <td id="bord" style="width:
+				    25%;"> Sub-Gaussian variables. Hoeffding
+				    bounds and sharpening.
+				    Sub-exponential variables. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W] 2.1.2, 2.1.3
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+ <a href="./Scribed_Lectures/F17_0906.pdf">pdf</a>
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <a  href="./HWs/HW01_36755_F17.pdf">HW1</a> is out.
+						   <a
+						       href="./HWs/HW01_36755_F17_Sol.pdf">HW1</a>
+						   Solutions.
+
+
+<tr id="bord">
+			        <td id="bord" style="width: 14%;">Sep
+				    11, M</td>
+				    <td id="bord" style="width:
+				    25%;"> Sub-exponential variables, Bernstein
+				    inequality, expected value of maxima. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  2.1.3, 2.1.4
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				  <a href="./Scribed_Lectures/F17_0911.pdf">pdf</a> 
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <!-- <a
+	     href="./HWs/HW01_36755_F17.pdf">HW1</a> is out. -->
+
+
+<tr id="bord">
+			        <td id="bord" style="width: 14%;">Sep
+				    13, W</td>
+				    <td id="bord" style="width:
+				    25%;"> The bounded difference inequality and
+				    applications. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  2.2
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				 <a href="./Scribed_Lectures/F17_0913.pdf">pdf</a> 
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <!-- <a
+	     href="./HWs/HW01_36755_F17.pdf">HW1</a> is out. -->
+
+<tr id="bord">
+			        <td id="bord" style="width: 14%;">Sep
+				    18, M</td>
+				    <td id="bord" style="width:
+				    25%;"> Concentration of Lipschitz functions
+				    of Gaussian vectors. Covering and Packing
+				    numbers. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  2.3, 5.1
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				  <a href="./Scribed_Lectures/F17_0918.pdf">pdf</a> 
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <!-- <a
+	     href="./HWs/HW01_36755_F17.pdf">HW1</a> is out. -->
+
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Sep
+				    20, W</td>
+				    <td id="bord" style="width:
+				    25%;"> Discretization argument. Review of
+				    matrix alegbra. Estimation of the covriance
+				    matrix in operator norm.<!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  6.1, 6.3
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				  <a href="./Scribed_Lectures/F17_0920.pdf">pdf</a> 
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						    <a
+	     href="./HWs/HW02_36755_F17.pdf">HW2</a> is out. 
+						   <a
+						       href="./HWs/HW02_755_F17_solution.pdf">HW1</a>
+						   Solutions.
+
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Sep
+				    25, M</td>
+				    <td id="bord" style="width:
+				    25%;"> Matrix Calculus and Matrix Bernetsin
+				    Inequality
+				    <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  6.4
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				  <a
+	  href="./Scribed_Lectures/F17_0925.pdf">pdf</a> 
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <!-- <a
+	     href="./HWs/HW02_36755_F17.pdf">HW2</a> is out. -->
+
+
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Sep
+				    27, W</td>
+				    <td id="bord" style="width:
+				    25%;">  Matrix Bernstein Inequality and
+				    application to covariance matrix estimation. 
+				    <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  6.4
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				   <a  href="./Scribed_Lectures/F17_0927.pdf">pdf</a> 
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <!-- <a
+	     href="./HWs/HW02_36755_F17.pdf">HW2</a> is out. -->
+
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Oct
+				    2, M</td>
+				    <td id="bord" style="width:
+				    25%;">  Matrix Bernstein Inequality and its
+				    use in network community recovery. Linear
+				    regression.
+				    <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  6.4
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				   <a href="./Scribed_Lectures/F17_1002.pdf">pdf</a> 
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <!-- <a
+	     href="./HWs/HW02_36755_F17.pdf">HW2</a> is out. -->
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Oct
+				    4, W</td>
+				    <td id="bord" style="width:
+				    25%;">  Finite sample performance for Linear
+				    regression. Penalized regression.
+				    <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  71., 7.3
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				   <a
+       href="./Scribed_Lectures/F17_1004.pdf">pdf</a>
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						    <a
+	     href="./HWs/HW03_36755_F17.pdf">HW3</a> is out.
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Oct
+				    9, M</td>
+				    <td id="bord" style="width:
+				    25%;">  Slow rate for the LASSO. The RE
+				    condition.
+				    <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  71., 7.3
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				   <a
+       href="./Scribed_Lectures/F17_1009.pdf">pdf</a>
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						 <!--   <a
+	   href="./HWs/HW03_36755_F17.pdf">HW3</a> is out.-->
+
+
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Oct
+				    11, W</td>
+				    <td id="bord" style="width:
+				    25%;">  More on ridge regression and
+				    thresholding estimation. Fast rates for the
+				    lasso.
+				    <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  7.3
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				   <a
+       href="./Scribed_Lectures/F17_1011.pdf">pdf</a>
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						 <!--   <a
+	   href="./HWs/HW03_36755_F17.pdf">HW3</a> is out.-->
+
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Oct
+				    16, M</td>
+				    <td id="bord" style="width:
+				    25%;"> Oracle inequalities for least squares
+				    and the lasso.
+				       	<!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> [W]  7.3
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				   <a
+       href="./Scribed_Lectures/F17_1016.pdf">pdf</a>
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						 <!--   <a
+	   href="./HWs/HW03_36755_F17.pdf">HW3</a> is out.-->
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Oct
+				    18, W</td>
+				    <td id="bord" style="width:
+				    25%;"> Persistence. Intro to PCA. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li> Greenshtein and Ritov (2004) and [W]
+					 8.1
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				   <a
+       href="./Scribed_Lectures/F17_1018.pdf">pdf</a>
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <a
+	   href="./HWs/HW04_36755_F17.pdf">HW4</a> is out.
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Oct
+				    23, M</td>
+				    <td id="bord" style="width:
+				    25%;"> Distance between linear sub-spaces
+				    and Davis Kahan theorem. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li>  [W]
+					 8.1, 8.2
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				<!--   <a
+	href="./Scribed_Lectures/F17_1018.pdf">pdf</a>-->
+				           </td>
+					       <td id="bord" style="width: 25%;">
+					<!--	   <a
+	 href="./HWs/HW03_36755_F17.pdf">HW4</a> is out.-->
+
+
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Oct
+				    25, W</td>
+				    <td id="bord" style="width:
+				    25%;"> PCA in high-dimensions. Spiked
+				    covariance model. Sparse PCA. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li>  [W]
+					 8.2, 8.3
+				 </ul>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				   <a
+	href="./Scribed_Lectures/F17_1025.pdf">pdf</a>
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						<!--   <a
+	  href="./HWs/HW03_36755_F17.pdf">HW4</a> is out.-->
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Oct
+				    30, M</td>
+				    <td id="bord" style="width:
+				    25%;">  Sparse PCA. Spectral clustering for
+				    SBMs. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				  <!-- <a
+	  href="./Scribed_Lectures/F17_1025.pdf">pdf</a> -->
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						  <!-- <a
+	    href="./HWs/HW03_36755_F17.pdf">HW4</a> is out.-->
+
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Nov
+				    1, W</td>
+				    <td id="bord" style="width:
+				    25%;">  Uniform law of larger numbers.
+				    Symmetrization Lemma. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li>  [W] 4.1, 4.2
+					
+				 </ul>
+	         </td>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				 <!--  <a
+	 href="./Scribed_Lectures/F17_1025.pdf">pdf</a> -->
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						   <a
+	    href="./HWs/HW05_36755_F17.pdf">HW5</a> is out.
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Nov
+				    6, M</td>
+				    <td id="bord" style="width:
+				    25%;">  No Class.
+				     <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+	         </td>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				<!--   <a
+	href="./Scribed_Lectures/F17_1025.pdf">pdf</a> -->
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						 <!-- <a
+			  href="./HWs/HW05_36755_F17.pdf">HW5</a> is out.-->
+
+<tr id="bord">
+
+			        <td id="bord" style="width: 14%;">Nov
+				    1, M</td>
+				    <td id="bord" style="width:
+				    25%;">  Uniform law of larger numbers.
+				    Symmetrization Lemma. <!-- <ul>
+					<li> a
+					    <li> b
+				    </ul>
+				    </td>-->
+				        <td id="bord" style="width: 20%;"> 
+				 <ul>
+				     <li>  [W] 4.1, 4.2
+					
+				 </ul>
+	         </td>
+	         </td>
+			     <td id="bord" style="width: 16%;">
+				  <!-- <a
+	  href="./Scribed_Lectures/F17_1025.pdf">pdf</a>-->
+				           </td>
+					       <td id="bord" style="width: 25%;">
+						  <!-- <a
+	    href="./HWs/HW05_36755_F17.pdf">HW5</a> is out.-->
+
+</table>
+
+
+<br>
+<br>
+<br>
+
+The scribe latex template is available  <a href="./template.tex">here</a>. 
+
+<br>
+<br>
+<br>
+
+Sign up <a
+    href="https://docs.google.com/spreadsheets/d/1P89s09z2OAtlUNVCUojSdUCx5i6nBXJVoYDFvL40bPA/edit?usp=sharing">here</a>.
+

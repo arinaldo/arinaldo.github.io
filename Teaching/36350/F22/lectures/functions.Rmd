@@ -1,0 +1,454 @@
+---
+title: "Functions"
+author: "Statistical Computing, 36-350"
+date: "Tuesday October 25, 2022"
+---
+
+Last week: Plotting tools
+===
+
+- `plot()`: generic plotting function
+- `points()`: add points to an existing plot
+- `lines()`, `abline()`: add lines to an existing plot
+- `text()`, `legend()`: add text to an existing plot
+- `rect()`, `polygon()`: add shapes to an existing plot
+- `hist()`, `image()`: histogram and heatmap
+- `heat.colors()`, `topo.colors()`, etc: create a color vector
+- `density()`: estimate density, which can be plotted
+- `contour()`: draw contours, or add to existing plot
+- `curve()`: draw a curve, or add to existing plot
+
+<span style="color: blue">Part I</span>
+===
+
+<span style="color: blue">*Function basics*</span>
+
+Why do we need functions?
+===
+
+- Data structures tie related values into one object
+- Functions tie related commands into one object
+- In both cases: easier to understand, easier to work with, easier to build into larger things
+
+Remember those commands you typed over and over?
+===
+
+From our lectures on text manipulation and regexes:
+
+```{r}
+# Get King's word counts
+king.lines = readLines("https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt")
+king.text = paste(king.lines, collapse=" ")
+king.words = strsplit(king.text, split="[[:space:]]|[[:punct:]]")[[1]]
+king.words = king.words[king.words != ""]
+king.wordtab = table(king.words)
+
+# Now retype for other speeches, etc.
+```
+
+Creating your own function
+===
+
+Call `function()` to create your own function. Document your function with comments
+
+```{r}
+# get.wordtab.king: get a word table from King's "I Have A Dream" speech
+# Input: none
+# Output: word table, i.e., vector with counts as entries and associated
+#   words as names
+
+get.wordtab.king = function() {
+  lines = readLines("https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt")
+  text = paste(lines, collapse=" ")
+  words = strsplit(text, split="[[:space:]]|[[:punct:]]")[[1]]
+  words = words[words != ""]
+  wordtab = table(words)
+  return(wordtab)
+}
+```
+
+---
+
+Much better: create a word table function that takes a URL of web
+
+```{r}
+# get.wordtab.from.url: get a word table from text on the web
+# Input:
+# - str.url: string, specifying URL of a web page 
+# Output: word table, i.e., vector with counts as entries and associated
+#   words as names
+
+get.wordtab.from.url = function(str.url) {
+  lines = readLines(str.url)
+  text = paste(lines, collapse=" ")
+  words = strsplit(text, split="[[:space:]]|[[:punct:]]")[[1]]
+  words = words[words != ""]
+  wordtab = table(words)
+  return(wordtab)
+}
+```
+
+Function structure
+===
+
+The structure of a function has three basic parts:  
+
+- **Inputs** (or **arguments**)  
+- **Body** (code that is executed)
+- **Output** (or **return value**)  
+
+R doesn't let your function have multiple outputs, but you can return a list
+
+Using your created function
+===
+
+Our created functions can be used just like the built-in ones
+
+```{r}
+# Using our function
+king.wordtab.new = get.wordtab.from.url(
+  "https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt")
+all(king.wordtab.new == king.wordtab)
+
+# Revealing our function's definition
+get.wordtab.from.url
+```
+
+Default return value
+===
+
+With no explicit `return()` statement, the default is just to return whatever is on the last line. So the following is equivalent to what we had before
+
+```{r}
+get.wordtab.from.url = function(str.url) {
+  lines = readLines(str.url)
+  text = paste(lines, collapse=" ")
+  words = strsplit(text, split="[[:space:]]|[[:punct:]]")[[1]]
+  words = words[words != ""]
+  table(words)
+}
+```
+
+Multiple inputs
+===
+
+Our function can take more than one input
+
+```{r}
+# get.wordtab.from.url: get a word table from text on the web
+# Inputs:
+# - str.url: string, specifying URL of a web page 
+# - split: string, specifying what to split on
+# Output: word table, i.e., vector with counts as entries and associated
+#   words as names
+
+get.wordtab.from.url = function(str.url, split) {
+  lines = readLines(str.url)
+  text = paste(lines, collapse=" ")
+  words = strsplit(text, split=split)[[1]]
+  words = words[words != ""]
+  table(words)
+}
+```
+
+Default inputs
+===
+
+Our function can also specify default values for the inputs (if the user doesn't specify an input in the function call, then the default value is used)
+
+```{r}
+# get.wordtab.from.url: get a word table from text on the web
+# Inputs:
+# - str.url: string, specifying URL of a web page 
+# - split: string, specifying what to split on. Default is the regex pattern
+#   "[[:space:]]|[[:punct:]]"
+# - tolower: Boolean, TRUE if words should be converted to lower case before
+#   the word table is computed. Default is TRUE
+# Output: word table, i.e., vector with counts as entries and associated
+#   words as names
+
+get.wordtab.from.url = function(str.url, split="[[:space:]]|[[:punct:]]", 
+                                tolower=TRUE) {
+  lines = readLines(str.url)
+  text = paste(lines, collapse=" ")
+  words = strsplit(text, split=split)[[1]]
+  words = words[words != ""]
+    
+  # Convert to lower case, if we're asked to
+  if (tolower) words = tolower(words)
+  
+  table(words)
+}
+```
+
+Examples of function calls
+===
+
+```{r}
+# Inputs can be called by name, or without names
+king.wordtab1 = get.wordtab.from.url(
+  str.url="https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt",
+  split="[[:space:]]|[[:punct:]]", tolower=TRUE)
+king.wordtab2 = get.wordtab.from.url(
+  "https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt",
+  "[[:space:]]|[[:punct:]]", TRUE)
+all(king.wordtab2 == king.wordtab1)
+
+# Inputs can be called by partial names (if uniquely identifying)
+king.wordtab3 = get.wordtab.from.url(
+  str="https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt",
+  spl="[[:space:]]|[[:punct:]]", tolower=TRUE)
+all(king.wordtab3 == king.wordtab1)
+```
+
+---
+
+```{r}
+# When inputs aren't specified, default values are used
+king.wordtab4 = get.wordtab.from.url(
+  str.url="https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt",
+  split="[[:space:]]|[[:punct:]]")
+all(king.wordtab4 == king.wordtab1)
+
+# Named inputs can go in any order
+king.wordtab5 = get.wordtab.from.url(
+  tolower=TRUE, split="[[:space:]]|[[:punct:]]",
+  str.url="https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt")
+all(king.wordtab5 == king.wordtab1)
+```
+
+The dangers of using inputs without names
+===
+
+While named inputs can go in any order, unnamed inputs must go in the proper order (as they are specified in the function's definition). E.g., the following code would throw an error:
+
+```{r, error=TRUE}
+king.wordtab6 = get.wordtab.from.url("[[:space:]]|[[:punct:]]",
+  "https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt",
+  tolower=FALSE)
+```
+
+because our function would try to open up "[[:space:]]|[[:punct:]]" as the URL of a web page
+
+When calling a function with multiple arguments, **use input names** for safety, unless you're absolutely certain of the right order for (some) inputs
+
+<span style="color: blue">Part II</span>
+===
+
+<span style="color: blue">*Return values and side effects*</span>
+
+Returning more than one thing
+===
+
+When creating a function in R, though you cannot return more than one output, you can **return a list**. This (by definition) can contain an arbitrary number of arbitrary objects
+
+```{r}
+# get.wordtab.from.url: get a word table from text on the web
+# Inputs:
+# - str.url: string, specifying URL of a web page 
+# - split: string, specifying what to split on. Default is the regex pattern
+#   "[[:space:]]|[[:punct:]]"
+# - tolower: Boolean, TRUE if words should be converted to lower case before
+#   the word table is computed. Default is TRUE
+# - keep.nums: Boolean, TRUE if words containing numbers should be kept in the
+#   word table. Default is FALSE
+# Output: list, containing word table, and then some basic numeric summaries
+
+get.wordtab.from.url = function(str.url, split="[[:space:]]|[[:punct:]]",
+                                tolower=TRUE, keep.nums=FALSE) {
+  lines = readLines(str.url)
+  text = paste(lines, collapse=" ")
+  words = strsplit(text, split=split)[[1]]
+  words = words[words != ""]
+    
+  # Convert to lower case, if we're asked to
+  if (tolower) words = tolower(words)
+  
+  # Get rid of words with numbers, if we're asked to
+  if (!keep.nums) 
+    words = grep("[0-9]", words, inv=TRUE, val=TRUE)
+  
+  # Compute the word table
+  wordtab = table(words)
+  
+  return(list(wordtab=wordtab,
+              number.unique.words=length(wordtab),
+              number.total.words=sum(wordtab),
+              longest.word=words[which.max(nchar(words))]))
+}
+```
+
+---
+
+```{r}
+# King's "I Have A Dream" speech 
+king.wordtab = get.wordtab.from.url(
+  "https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt")
+lapply(king.wordtab, head)
+
+# Lincoln's Gettysburg address
+lincoln.wordtab = get.wordtab.from.url(
+  "https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/lincoln.txt")
+lapply(lincoln.wordtab, head)
+```
+
+Side effects
+===
+
+A **side effect** of a function is something that happens as a result of the function's body, but is not returned. Examples:
+
+- Printing something out to the console 
+- Plotting something on the display 
+- Saving an R data file, or a PDF, etc.
+
+---
+
+```{r}
+# get.wordtab.from.url: get a word table from text on the web
+# Inputs:
+# - str.url: string, specifying URL of a web page 
+# - split: string, specifying what to split on. Default is the regex pattern
+#   "[[:space:]]|[[:punct:]]"
+# - tolower: Boolean, TRUE if words should be converted to lower case before
+#   the word table is computed. Default is TRUE
+# - keep.nums: Boolean, TRUE if words containing numbers should be kept in the
+#   word table. Default is FALSE
+# - hist: Boolean, TRUE if a histogram of word lengths should be plotted as a
+#   side effect. Default is FALSE
+# Output: list, containing word table, and then some basic numeric summaries
+
+get.wordtab.from.url = function(str.url, split="[[:space:]]|[[:punct:]]",
+                                tolower=TRUE, keep.nums=FALSE, hist=FALSE) {
+  lines = readLines(str.url)
+  text = paste(lines, collapse=" ")
+  words = strsplit(text, split=split)[[1]]
+  words = words[words != ""]
+    
+  # Convert to lower case, if we're asked to
+  if (tolower) words = tolower(words)
+    
+  # Get rid of words with numbers, if we're asked to
+  if (!keep.nums) 
+    words = grep("[0-9]", words, inv=TRUE, val=TRUE)
+  
+  # Plot the histogram of the word lengths, if we're asked to
+  if (hist) 
+    hist(nchar(words), col="lightblue", breaks=0:max(nchar(words)),
+         xlab="Word length")
+  
+  # Compute the word table
+  wordtab = table(words)
+  
+  return(list(wordtab=wordtab,
+              number.unique.words=length(wordtab),
+              number.total.words=sum(wordtab),
+              longest.word=words[which.max(nchar(words))]))
+}
+```
+
+---
+
+```{r}
+# King's speech
+king.wordtab = get.wordtab.from.url(
+  str.url="https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/king.txt",
+  hist=TRUE)
+lapply(king.wordtab, head)
+
+# Lincoln's speech
+lincoln.wordtab = get.wordtab.from.url(
+  str.url="https://www.stat.cmu.edu/~arinaldo/Teaching/36350/F22/data/lincoln.txt",
+  hist=TRUE)
+lapply(lincoln.wordtab, head)
+```
+
+<span style="color: blue">Part III</span>
+===
+
+<span style="color: blue">*Environments and design*</span>
+
+Environment: what the function can see and do
+===
+
+- Each function has its own environment  
+- Names here override names in the global environment  
+- Internal environment starts with the named arguments  
+- Assignments inside the function only change the internal environment  
+- Names undefined in the function are looked for in the global environment
+
+Environment examples
+===
+
+```{r}
+x = 7
+y = c("A","C","G","T","U")
+adder = function(y) { x = x+y; x }
+adder(1)
+x
+y
+```
+
+---
+
+```{r}
+circle.area = function(r) { pi*r^2 }
+circle.area(1:3)
+true.pi = pi
+pi = 3 # Valid in 1800s Indiana
+circle.area(1:3)
+pi = true.pi # Restore sanity
+circle.area(1:3)
+```
+
+Relying on variables outside of the function's environment
+===
+
+- Generally OK for built-in constants like `pi`, `letters`, `month.names`, etc.
+- Generally not OK for user-defined variables outside of the function
+- For the latter, pass these as input arguments to your function
+
+Bad side effects
+===
+
+Not all side effects are desirable. One particularly **bad side effect** is if the function's body changes the value of some variable outside of the function's environment
+
+- Not easy to do (we won't even tell you how)
+- But can be done and should be avoided at all costs!
+
+Top-down function design
+===
+
+1. Start with the big-picture view of the task
+2. Break the task into a few big parts
+3. Figure out how to fit the parts together
+4. Repeat this for each part
+
+Start off with a code sketch
+===
+
+You can write top-level code, right away, for your function's design:
+
+```
+# Not actual code
+big.job = function(lots.of.arguments) {
+  first.result = first.step(some.of.the.args)
+  second.result = second.step(first.result, more.of.the.args)
+  final.result = third.step(second.result, rest.of.the.args)
+  return(final.result)
+}
+```
+
+After you write down your design, go ahead and write the sub-functions (here `first.step()`, `second.step()`, `third.step()`). The process may be iterative, in that you may write these sub-functions, then go back and change the design a bit, etc.
+
+With practice, this design strategy should become natural
+
+Summary
+===
+
+- Function: formal encapsulation of a block of code; generally makes your code easier to understand, to work with, and to modify
+- Functions are absolutely critical for writing (good) code for medium or large projects
+- A function's structure consists of three main parts: inputs, body, and output
+- R allows the function designer to specify default values for any of the inputs
+- R doesn't allow the designer to return multiple outputs, but can return a list
+- Side effects are things that happen as a result of a function call, but that aren't returned as an output
+- Top-down design means breaking a big task into small parts, implementing each of these parts, and then putting them together
