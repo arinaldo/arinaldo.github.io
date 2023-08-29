@@ -1,0 +1,23 @@
+# jemdoc: menu{MENU}{bio.html}, nofooter  
+
+
+== Short Bio
+I am a Dean's Chair Professor in the [http://www.stat.cmu.edu Department of Statistics and Data Science] and the Associate Dean in the [https://www.cmu.edu/dietrich/index.html Dietrich College of Humanities and Social Sciences] at [https://www.cmu.edu Carnegie Mellon University]. I received my PhD in Statistics at Carnegie Mellon in 2005 under the supervision of Stephen E. Fienberg. Beginning Fall 2023, I will join the [https://stat.utexas.edu Department of Statistics and Data Science] at [https://www.utexas.edu UT Austin].
+
+
+== Research Interests
+
+My research interests revolve mainly around the theoretical properties of statistical and machine learning models for high-dimensional data under various structural assumptions, such as sparsity or intrinsic low dimensionality. In my research work I have investigated a broad range of issues related to the feasibility of statistical inference in a variety of problems, including high-dimensional regression, time series, privacy, categorical data analysis and graphical modeling, statistical network analysis, algebraic statistics, density-based clustering, topological and geometric data analysis and change-point detection. 
+Though predominantly of theoretical nature, my research work is motivated by highly practical problems in data science and has direct methodological implications, as it aims at deriving theoretical guarantees in support of existing methods and algorithms.
+
+
+
+== Service
+I served as the Director of the PhD program 2017-2020. Prior to that, I was an AE for 
+- [http://imstat.org/aos/ Annals of Statistics]
+- [http://www.imstat.org/ejs/ Electronic Journal of Statistics]
+- [http://www.tandfonline.com/toc/uasa20/current Journal of the American Statistical Association]
+- [https://www.journals.elsevier.com/journal-of-statistical-planning-and-inference/editorial-board/ Journal of Statistical Planning and Inference]
+
+
+

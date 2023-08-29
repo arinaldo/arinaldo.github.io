@@ -1,0 +1,3 @@
+{{<font color="crimson">"Segmentation and Detection of Fluorescent 3-D Spots,"</font>}}
+
+{{<font color=DarkBlue size=+1.5><b>}}
