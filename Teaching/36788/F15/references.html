@@ -1,0 +1,567 @@
+<h2>References</h2>
+
+
+<b>Books, Lecture Notes, Expository Articles </b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+	</table>
+   <ul>
+	<li> Concentration Inequalities: A Nonasymptotic Theory of
+	    Independencei, by S. Boucheron, G. Lugosi and P. Massart, Oxford
+	    University Press, 2013. 
+	<li> Concentration Inequalities and Model Selection, by P. Massart,
+	    Springer Lecture Notes in Mathematics, vol 1605, 2007.
+	    <li> The Concentration of Measure Phenomenon, by M. Ledoux, 2005,
+		AMS.
+			<li> Lecture notes on concentration of measure
+				Inequalities, by G. Lugosi, <a
+				href="http://www.econ.upf.edu/~lugosi/anu.pdf">pdf</a>.
+				<li> A Probabilistic Theory of Pattern
+				    Recognition, by L. Devroye, L. Gy&ouml;fi and
+				    G. Lugosi, Springer, 1996 <a
+					href="http://www.szit.bme.hu/~gyorfi/pbook.pdf">pdf</a>.
+				    <li> Concentration of Measure Inequalities
+					in Information Theory, Communications
+					and Coding, by M. Raginski and I. Sason,
+					Foundations and Trends
+					in Communications and Information
+					Theory, 2014.
+				    <li> A New Look at Independence -- Special
+					Invited Paper, by  M.
+					Talagrand, the Annals of Applied
+					Probability, 24(1),1--34, 1996. 
+		<li> Concentration of Measure for the Analysis of Randomized
+		    Algorithms, by D.P. Dubhashi and A, Panconesi, Cambridge
+		    University Press, 2012. 
+		    <li> Concentration by C. McDiarmid. In M. Habib. C.
+			McDriamid, J.Ramirez-Alfonsin and B. Reed, editors,
+			Probabilistic Methods for Algorithmic Discrete
+			Mathematics, 195--248, Springer, 1998.
+			<li> R. Vershynin, Introduction to the non-asymptotic
+			    analysis of random matrices. In: Compressed Sensing:
+			    Theory and Applications, eds. Yonina Eldar and Gitta
+			    Kutyniok. Cambridge University Press,
+		    <li> Measure Concentration, Lecture Notes for Math 710, by
+			Alexander Barvinok, 2005. <a href="./Barvinok.pdf">pdf</a> 
+			<li> Probability Theory and Combinatorial Optimization,
+			    by M. Steele, CBMS Regionel Conference Series in
+			    Applied Mathematics, vol. 69, 1997. 
+	</ul>
+
+	<br><br>
+
+<b>Lecture 1, Tue Sep 1</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+Some applications of concentration inequalities in high-dimensional statistics:
+					    <ul>
+						<li> Theorem 1 in M. J.
+						    Wainwright (2009), Sharp
+						    thresholds for noisy and
+						    high-dimensional recovery of
+						    sparsity using
+						    $\ell_1$-constrained
+						    quadratic programming
+						    (Lasso). IEEE Transactions
+						    on Information Theory,
+						    55:2183--2202.
+						    <li> Theorem 5.2 in A simple proof of the
+							restricted isometry
+							property for random
+							matrices
+							R Baraniuk, M Davenport,
+							R DeVore, M Wakin
+							Constructive
+							Approximation 28 (3),
+							253-263
+							<li> For the covariance
+							    estimation example
+							    see HW1.
+					    </ul>
+
+	Parameter consistency and central limit theorems for models with increasing
+	dimension d (but still d < n): 				    
+<ul>
+    <li> Wasserman, L, Kolar, M. and Rinaldo, A. (2014). Berry-Esseen bounds for
+	estimating undirected graphs, Electronic Journal of Statistics, 8(1),
+	1188-1224.
+	<li> Fan, J. and Peng, H. (2004). Nonconcave penalized likelihood with a
+	    diverging number of parameters, the Annals of Statistics, 32(3),
+	    928-961.
+    <li> Portnoy, S. (1984). Asymptotic Behavior of M-Estimators of p
+	Regression, 
+	Parameters when p^2/n is Large. I. Consistency, tha Annals of
+	Statistics, 12(4), 1298--1309.
+	<li> Portnoy, S. (1985). Asymptotic Behavior of M Estimators of p Regression Parameters
+	    when p^2/n is Large; II. Normal Approximation, the Annals of
+	    Statistics, 13(4), 1403-1417.
+	    <li> Portnoy, S. (1988). Asymptotic Behavior of Likelihood Methods
+		for Exponential Families when the Number of Parameters Tends to
+		Infinity, tha Annals of Statistics, 16(1), 356-366.
+
+   </ul>
+
+   Some central limit theorem results in increasing dimension (in the second mini we will
+   see more specialized and stronger results).
+
+   <ul>
+   <li> Bentkus, V. (2003). On the dependence of the Berry–Esseen bound on
+       dimension, Journal of Statistical Planning and Inference, 113,
+	385-402.
+	    <li> Portnoy, S. (1986). On the central limit theorem in R p when
+		$p \rightarrow \infty$, Probability Theory and Related Fields,
+		73(4),  571-583.
+   </ul>
+
+   <br><br>
+
+
+<b>Lecture 2, Thu Sep 3</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    For those interested in the mathematical theory of the conecntration of
+    measure, these are good references:
+    <ul>
+	    <li> The Concentration of Measure Phenomenon, by M. Ledoux, 2005,
+		AMS.
+		    <li> Measure Concentration, Lecture Notes for Math 710, by
+			Alexander Barvinok, 2005. <a href="./Barvinok.pdf">pdf</a> 
+	<li> Concentration of measure, lecture notes by N. Berestycki and R.
+	    Nickl <a href="./berestycki_nickl_notes.pdf">pdf</a> 
+    </ul>
+
+
+
+    <br><br>
+
+<b>Lecture 3, Tue Sep 8</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+    Most of the material on sub-gaussianity was taken from here:
+    <ul>
+	<li> Omar Rivasplata, Subgaussian random variables: An expository
+										 note,
+										 Sections
+										 1, 2
+										 and
+										 3. <a
+										 href="./subgaussians.pdf">pdf</a> 
+	<li> Lecture 6 of the course "Machine learning and appplications", by Z.
+	    Harchaui, J. Mairal and J. Salmon,  <a
+										 href="http://lear.inrialpes.fr/people/harchaoui/teaching/2013-2014/ensl/m2/lecture6.pdf">pdf</a>
+     </ul>
+      
+     More comprehensive treatment of sub-gaussian variables and processes (and
+     more) are: 
+     <ul>
+     <li> Metric Characterization of Random
+     Variables and Random Processes, by V. V. Buldygin, AMS, 2000.
+     <li> Introduction to the non-asymptotic analysis of random matrices, by R.
+	 Vershynin, Chapter 5 of: Compressed Sensing, Theory and Applications.
+	 Edited by Y. Eldar and G. Kutyniok. Cambridge University Press,
+	 210–268, 2012. <a
+	     href="http://www-personal.umich.edu/~romanv/papers/non-asymptotic-rmt-plain.pdf">pdf</a>  
+     </ul>
+
+     References for Chernoff bounds for Bernoulli (and their multiplicative
+     forms):
+     <ul>
+	 <li> A guided tour of chernoff bounds, by T. Hagerup and C. R\"{u}b,
+	     Information and Processing Letters, 33(6), 305--308, 1990.
+	     <li> Chapter 4 of the book Probability and Computing: Randomized
+		 Algorithms and Probabilistic Analysis, by M. Mitzenmacher  and
+		 E. Upfal, Cambridge University Press, 2005. 
+	     <li> The Probabilistic Method, 3rd Edition, by N. Alon and J. H.
+		 Spencer, Wiley, 2008, Appendix A.1. 
+     </ul>
+
+     Improvement of Hoeffding's ineqaulity by Berend and Kantorivich:
+     <ul>
+	 <li> On the concentration of the missing mass, by D. Berend and A.
+	     Kntorovich, Electron. Commun. Probab. 18 (3), 1–7, 2013.
+	     <li> Section 2.2.4 in Raginski's monograph (see references at the
+		 top).
+	 </ul>
+
+	 Example of how the relative or multiplicative version of Chernoff
+	 bounds will lead to substantial improvements:
+	 <ul>
+	     <li>
+		 Minimax-optimal classification with dyadic decision trees, by
+		 C. Scott and R. Nowak, iEEE Transaction on Information Theory,
+		 52(4), 1335-1353.
+	 </ul>
+
+	 <br><br>
+
+<b>Lecture 4, Thu Sep 10</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+For more information on sub-exponential variables, consult:
+<ul>
+     <li> Metric Characterization of Random
+     Variables and Random Processes, by V. V. Buldygin, AMS, 2000.
+</ul>
+	 <br><br>
+	 
+
+<b>Lecture 5, Tue Sep 15</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    Empirical Bernstein Inequality:
+<ul>
+     <li> 
+	Empirical Bernstein Bounds and Sample-Variance Penalization
+       by: Andreas Maurer, Massimiliano Pontil
+In COLT (2009)       
+</ul>
+Concentration of chi-squared variables:
+<ul>
+    <li> Lemma 1 in Adaptive estimation of a quadratic functional by model
+	selection, by B. Laurent and P. Massart, Annals of Statistics, 2000,
+	28(5), 1302-1338.
+	</ul>
+	For classic proofs of Hoeffding, Bennet and Bernstein, see, e.g., 
+	<ul>
+	    <li> Chernoff, Hoeffding’s and Bennett’s Inequalities, a write-up by
+	       Jimmy Jin, James Wilson and Andrew Nobel. <a href="./hoef_ben_berna.pdf">pdf></a>	
+	</ul>
+	For an example of how Bernstein's inequality is preferable to Hoeffding,
+	see Lemma 13 in
+	<ul>
+	    <li> Minimax Rates for Homology Inference, by S. Balakrishnan, A.
+		Rinaldo, D. Sheehy, A. Singh and L. Wasserman, 2011, AISTATS.
+	</ul>
+	 <br><br>
+
+
+
+<b>Lecture 6, Thu Sep 17</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    Some references on JL Lemma and random projections:
+<ul>
+     <li> An Elementary Proof of a Theorem of Johnson and Lindenstrauss
+	 S. Dasgupta and  A. Gupta, Random Structures & Algorithms, 22(1),
+	 60-65, 2008.
+	 <li> D. Achlioptas, Database friendly random projections, Proc 20th ACM
+	     Symp Principles of
+	     Database Systems, 2001.
+	     <li> P. Indyk and R. Motwani, Approximate nearest neighbors:
+		 Towards removing the curse of dimensionality, Proc 30th Annu
+		 ACM Symp Theory of Computing, Dallas, TX, 1998, pp. 604 – 613.
+		 <li> The Fast Johnson–Lindenstrauss Transform and Approximate
+		     Nearest Neighbors, N. Ailon and B. Chazelle, SIAM J.
+		     Comput., 39(1), 302–322, 2009.
+		     <li> Locality-sensitive hashing scheme based on p-stable
+			 distributions, by M. Datar, N. Immorlica, P. Indyk, V.
+			 Mirrokni, Proceeding
+			 SCG '04 Proceedings of the twentieth annual symposium
+			 on Computational geometry, 253-262, 2004. 
+</ul>
+
+On embedding of of finite metric spaces (of which the JL Lemma is an example):
+<ul>
+		     <li> Chapter 15 of Lectures on Discrete Geometry, by G.
+			 Matousek, 2002, Springer.
+</ul>
+
+A nice, dense monograoh devoted to uses of random projections:
+<ul>
+    <li> The Random Projection Method, by S. Vampala. AMS,, 2004.
+</ul>
+
+
+A sherpening of the JL Lemma, based on empirical process theory:
+<ul>
+    <li> Empirical processes and random projection Journal of Functional
+	Analysis, k. Klartag and S. Mendelson, 2005 225(1), 1 August 2005, Pages
+	229–245.
+	</ul>
+
+JL Lemma and the RIP condition in compressed sensing:
+<ul>
+    <li> The Restricted Isometry Property
+and Its Implications for Compressed Sensing, E. Candes, Comptes Rendus
+Mathematique, Vol. 346, No. 9-10
+<li> Theorem 5.2 in A simple proof of the restricted isometry property for random
+matrices R. Baraniuk, M. Davenport, R. DeVore, M Wakin, Constructive
+Approximation 28 (3), 253-263
+</ul>
+
+
+The JL Lemma and manifolds:
+<ul>
+    <li> Distance Preserving Embeddings for General n-Dimensional Manifolds, N.
+	Verma, JMLR, 14 (2013) 2415-2448.
+	<li> Tighter bounds for random projections of manifolds, K. Clarkson.  Symposium on
+	    Computational Geometry (SoCG), 24:39–49, 2008.
+	    <li>  Random projections of smooth
+		manifolds, R. Baraniuk and M. Wakin, Foundations of Computa- tional Mathematics (FoCM),
+		9(1):51–77, 2009.
+    </ul>
+
+
+    And finally, a nice reading course:
+    <ul>
+	<li> <a href="http://cseweb.ucsd.edu/~dasgupta/254-embeddings/">CSE 254:
+	    Seminar on Learning Algorithms</a>
+    </ul>
+	 <br><br>
+
+
+
+<b>Lecture 7, Thu Sep 22</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+   The DKW inequality with the best constant:
+<ul>
+     <li>  Massart, P. (1990), x"The tight constant in the
+	 Dvoretzky–Kiefer–Wolfowitz inequalityx", The Annals of Probability 18
+	 (3): 1269–1283
+</ul>
+
+
+<br><br>
+
+
+<b>Lecture 8, Thu Sep 24</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+Ale out of town.
+
+
+<br><br>
+<br><br>
+
+<b>Lecture 9, Tue Sep 29</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+References for martingale methods to get concentration inequalities:
+    <ul>
+     <li> Colin McDiarmid. Chapter titled Concentration in Probabilistic Methods for Algorithmic Discrete
+	 Mathematics
+	 Volume 16 of the series Algorithms and Combinatorics pp 195-248.
+	 <li> Chung F. and L. Lu, Concentration inequalities and martingale
+	     inequalities — a survey, 2006, <a
+		 href="http://www.math.ucsd.edu/~fan/wp/concen.pdf">pdf</a>
+	     <li> Section 2.2 in Raginski's monograph (see references at the
+		 top).
+</ul>
+
+Interesting improvements:
+<ul>
+    <li> E. Rio, On McDiarmid's concentration inequality
+	Emmanuel Rio, Electronic Communications in Probability, 18(44), 1-11.
+	<li> Kontorovich, A. (2014). Concentration in unbounded metric spaces and algorithmic stability.
+	    ICML 2014: 28-36
+	    <li> Sanon, I. (2011). On Refined Versions of the Azuma-Hoeffding Inequality
+		with Applications in Information Theory, <a
+		    href="http://arxiv.org/pdf/1111.1977v9.pdf">pdf</a>
+    </ul>
+
+<br><br>
+
+
+
+<b>Lecture 10, Thu Oct 1</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+References the entropy method
+    <ul>
+	<li> Ledoux, M. (1997). On Talagrand’s deviation inequalities for
+	    product measures. ESAIM Probability
+	    and Statistics, 1, 63–87.
+	<li> Massart, P. (2000a). About the constants in Talagrand’s
+	    concentration inequalities for empirical processes. The Annals of
+	    Probability, 28, 863–884.
+    <li> S. Boucheron, G. Lugosi and P Massart: On concentration of
+	    self-bounding functions. Electronic Journal of Probability.14 (2009)
+	    1884-1899.
+	    <li> Maurer, A. (2006). Concentration inequalities for functions of
+		independent variables. Random Structures & Algorithms, 29,
+		121–138.
+	    <li> S. Boucheron and G. Lugosi and P. Massart: Concentration
+		inequalities using the entropy method (2003), Annals of
+		Probability, 31, 1583-1614.
+		<li> S Boucheron and G. Lugosi and P. Massart : A sharp
+		    concentration inequality with applications Random Structure
+		    and Algorithms 16 (2000), 277-292
+</ul>
+
+<br><br>
+
+<b>Lecture 11, Tue Oct 6</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    References for Max's lectture:
+    <ul>
+	<li>
+	 Arratia, Goldstein, Gordon.  Two moments suffice for Poisson
+	 approximations: the Chen-Stein method, 1989
+	 <li> Arratia, Goldstein, Gordon.  Poisson Approximation and the Chen-Stein
+       Method, Statistical Science, 1990	 
+	    Ledoux, M. (1997). On Talagrand’s deviation inequalities for
+	    product measures. ESAIM Probability
+	    and Statistics, 1, 63–87.
+</ul>
+
+<br><br>
+
+<b>Lecture 12, Thu Oct 8</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+For today's lecture, the main references are:
+
+    <ul>
+	    <li> S. Boucheron and G. Lugosi and P. Massart: Concentration
+		inequalities using the entropy method (2003), Annals of
+		Probability, 31, 1583-1614.
+	    <li> Maurer, A. (2006). Concentration inequalities for functions of
+		independent variables. Random Structures & Algorithms, 29,
+		121–138.
+		<li> A. Maurer (2012). Thermodynamics and concentration,
+		    Bernoulli, 18(2), 434-454. 
+</ul>
+
+<br><br>
+
+
+<b>Lecture 13, Tue Oct 13</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    Same references as the previous lecture.
+
+<br><br>
+
+
+
+
+<b>Lecture 13, Thu Oct 15</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    The basic references for matrix concentration inequalities are:
+					    <ul>
+						<li> Tropp, J. (2012).
+						User-friendly tail bounds for
+						sums of random matrices, Found.
+						Comput. Math., Vol. 12, num. 4,
+						pp. 389-434, 2012.
+						<li> Tropp, J. (2015). An
+						Introduction to Matrix
+						Concentration Inequalities,
+						Found. Trends Mach. Learning,
+						Vol. 8, num. 1-2, pp. 1-230
+					    </ul>
+					    and references therein.
+<br><br>
+
+
+<b>Lecture 14, Tue Oct 20</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    Same references as the last time.
+
+
+
+<br><br>
+
+
+
+
+<b>Lecture 15, Tue Oct 22</b>
+<tr>
+<td colspan="2" align="center" valign="top"> <br>
+<table width="80%">
+<tr><td colspan="2" bgcolor="#0000FF"> <!--<img src="transparent.gif" height="1" border="0"></td></tr>-->
+</tr></td><tr>
+    </table>
+
+    <ul>
+	<li> Hoeffding, W. (1963). Probability inequalities for sums of
+	    bounded random variables. Journal of the American Statistical
+	    Association 58 (301): 13–30.
+	    <li> Hoeffding, W. (1948). A Class of Statistics with Asymptotically Normal
+		Distribution, The Annals of Mathematical Statistics, 3(3), 293-325.
+    </ul>
+
+
+
+<br><br>
