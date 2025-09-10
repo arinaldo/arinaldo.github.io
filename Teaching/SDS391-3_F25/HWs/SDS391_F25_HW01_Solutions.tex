@@ -1,0 +1,301 @@
+\documentclass[12pt]{article}
+
+\textheight=8.5in
+\textwidth=6.5in
+\topmargin=-36pt
+\parindent=0in
+\oddsidemargin=0pt\evensidemargin=0pt
+\newcommand{\F}{{\cal F}}
+\newcommand{\lni}{\lim_{n\rightarrow\infty}}
+
+\usepackage{amsmath,amssymb}
+\usepackage{bbm}
+\usepackage{hyperref}
+\hypersetup{backref, colorlinks=true, citecolor=blue, linkcolor=blue, urlcolor=blue}
+\begin{document}
+
+\begin{center}
+{\bf SDS 391-3, Fall 2025 \\
+ Homework 1}\\
+ \vspace{5pt}
+ Due ??, by midnight on \href{https://canvas.utexas.edu/index.html}{Canvas}.
+\end{center}
+
+%\vspace{.2in}
+%
+%Reading assignment: read the proof of $\pi-\lambda$ theorem.
+%
+
+
+
+\begin{enumerate}
+%\item Let $\{x_n\}$ be a sequence of numbers. Describe the mathematical statements: $x_n = \Omega(1)$, $x_n = \omega(1)$ and $x_n = \Theta(1)$.
+
+
+%\color{blue}
+%$x_n = \Omega(1)$ is equivalent to the statement that $\inf_n |x_n| \geq C$ for some $C>0$.  $x_n = \omega(1)$ is equivalent to the statement that, for any $M>0$ (arbitrarily large) there exists a $N \in \mathbb{N}$ (which depends on $M$) such that $|x_n| \geq M$ for all $n \geq N$. $x_n = \Theta(1)$  is equivalent to the statement that there exists a $C \geq 1$ such that $\frac{1}{C} \leq |x_n| \leq C$.
+%\color{black}
+
+\item {\bf Limit superior and limit inferior.}
+\begin{enumerate}
+\item Let $\{A_n\}$ be a sequence of events (an event is a collection of outcomes). Argue that an outcome belongs to $\limsup_n A_n$ if and only if it belongs to infinitely many events $A_n$'s and that it belongs to $\liminf_n A_n$ if and only if there exists an integer $N$ such that the outcome belongs to all the events $A_n$ with $n \geq N$ (so it belongs to the $A_n$'s eventually). Conclude that $\liminf_n A_n \subseteq \limsup_n A_n$.\\
+\color{blue}
+Recalling the definition $\limsup_n A_n = \cap_{n=1}^\infty \cup_{m=n}^\infty A_m$, if a point $x$ belongs to $\limsup_n A_n$ then, for every $n$, it belongs to the set $\cup_{m=n}^\infty A_m$. Equivalently, for every $n$, there exists a $k \geq n$ such that $x \in A_k$. That is $x$ belongs to infinitely many events $A_n$'s. Similarly, since $\liminf_n A_n = \cup_{n=1}^\infty \cap_{m=n}^\infty A_m$, if $x$ belongs to $\liminf_n A_n$, there exists a $N$ such that $x$ belongs to each $A_m$ with $m \geq N$.
+\color{black}
+%\item  Consider the same setting above. De Morgan's Laws state that $\left(\cup_n A\right)^c = \cap_n A_n^c$ and $\left(\cap_n A\right)^c = \cup_n A_n^c$, where $A^c$ is the complement of the set $A$. Use De Morgan's law to show that $\left( \liminf_n A_n \right)^c = \limsup_n A^c_n$.\\
+%\color{blue}
+%This follows directly from DeMorgan's Law.
+\color{black}
+\item Let $A_n$ be $(-1/n,1]$ if $n$ is odd and $(-1,1/n]$ if $n$ is even. Find $\limsup_n A_n$ and $\liminf_n A_n$.\\
+\color{blue} 
+Note that for any $k\in\mathbb{N}$, $A_{k}\cup A_{k+1}=(-1,1]$.
+Hence $\bigcup_{k=n}^{\infty}A_{k}=(-1,1]$ for all $n\in\mathbb{N}$,
+and hence 
+\[
+\limsup_{n}A_{n}=\bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}A_{k}=\bigcap_{n=1}^{\infty}(-1,1]=(-1,1].
+\]
+Also, note that for any $m\in\mathbb{N}$, $\bigcap_{k=m}^{\infty}A_{2k-1}=[0,1]$
+and $\bigcap_{k=m}^{\infty}A_{2k}=(-1,0]$. Hence $\bigcap_{k=n}^{\infty}A_{k}=\{0\}$
+for any $n\in\mathbb{N}$, and hence 
+\[
+\liminf_{n}A_{n}=\bigcup_{n=1}^{\infty}\bigcap_{k=n}^{\infty}A_{k}=\bigcup_{n=1}^{\infty}\{0\}=\{0\}.
+\]
+\color{black}
+
+\item {\bf On the relationship between $\liminf$ and $\limsup$ of events and numbers.} Recall that for a sequence of numbers $\{ x_n\}_{n=1,2\ldots}$,
+\[
+\liminf_n x_n = \inf_{n \geq 1} \sup_{m \geq n} x_m \quad \text{and} \quad \limsup_n x_n = \sup_{n \geq 1} \inf_{m \geq n} x_m
+\]
+For an event $A_n$, denote with $I_{A_n}$ the $0-1$ random varibale that is $1$ if $A_n$ takes place and $0$ otherwise. Show that
+\[
+I_{\limsup_n A_n} = \limsup_n I_{A_n} \quad \text{and} \quad I_{\liminf_n A_n} = \liminf_n I_{A_n}
+\]
+
+
+\item {\bf Bonus Problem}. Let $A_n$ the interior of the ball in $\mathbb{R}^2$ with unit radius and center $\left(\frac{{(-1)}^n}{n},0\right)$.  Find $\limsup_n A_n$ and $\liminf_n A_n$.\\
+\color{blue}
+Let $D:=\{x\in\mathbb{R}^{2}:\,\|x\|_{2}<1\}$ and $B:=\{x=(x_{1},x_{2})\in\mathbb{R}^{2}:\,\|x\|_{2}=1,\,x_{1}\neq0\}$.
+We will show that $\liminf_{n}A_{n}=D$ and $\limsup_{n}A_{n}=D\cup B$.
+
+For $\liminf_{n}A_{n}$, note that $x\in\liminf_{n}A_{n}$ if and
+only if $x\in A_{n}$ for all but finite $n$. Suppose $x\in D$.
+Then $\|x\|_{2}<1$, so choose $N$ large enough so that $\frac{1}{N}<1-\|x\|_{2}$.
+Then for all $n\geq N$,
+\begin{align*}
+\left\Vert x-\left(\frac{(-1)^{n}}{n},0\right)\right\Vert _{2} & \leq\left\Vert x\right\Vert _{2}+\left\Vert \left(\frac{(-1)^{n}}{n},0\right)\right\Vert _{2}\\
+& =\left\Vert x\right\Vert _{2}+\frac{1}{n}\leq\left\Vert x\right\Vert _{2}+\frac{1}{N}<1.
+\end{align*}
+Then $x\in A_{n}$ for all $n\geq N$, and hence $x\in\liminf_{n}A_{n}$,
+which implies $D\subset\liminf_{n}A_{n}$. Now, suppose $x\notin D$
+and $x_{1}\geq0$. Then for all odd $n$, 
+\[
+\left\Vert x-\left(\frac{(-1)^{n}}{n},\,0\right)\right\Vert _{2}=\left\Vert \left(x_{1}-\frac{1}{n},\,x_{2}\right)\right\Vert _{2}>\left\Vert \left(x_{1},\,x_{2}\right)\right\Vert _{2}\geq1,
+\]
+Hence $x\notin A_{n}$ for all odd $n$, and hence $x\notin\liminf_{n}A_{n}$.
+Similarly, when $x\notin D$ and $x_{1}\leq0$, then $x\notin A_{n}$
+for all even $n$, and hence $x\notin\liminf_{n}A_{n}$. These imply
+$\liminf_{n}A_{n}\subset D$, and hence 
+\[
+\liminf_{n}A_{n}=D.
+\]
+
+For $\limsup_{n}A_{n}$, note that $x\in\limsup_{n}A_{n}$ if and
+only if $x\in A_{n}$ for infinitely many $n$. Suppose $x\in D\cup B$.
+We have already shown that $D=\liminf_{n}A_{n}\subset\limsup_{n}A_{n}$,
+and hence if $x\in D$ then $x\in\limsup_{n}A_{n}$. Now, suppose
+$x\in B$ and $x_{1}>0$. Then $\|x\|_{1}=1$. Choose $N$ large enough
+so that $\frac{1}{N}<|x_{1}|$. Then for all even $n$ with $n\geq N$,
+$\left|x_{1}-\frac{1}{n}\right|\leq\left|x_{1}\right|$, and hence
+\begin{align*}
+\left\Vert x-\left(\frac{(-1)^{n}}{n},0\right)\right\Vert _{2} & =\left\Vert \left(x_{1}-\frac{1}{n},\,x_{2}\right)\right\Vert _{2}\\
+& <\left\Vert \left(x_{1},\,x_{2}\right)\right\Vert _{2}=1.
+\end{align*}
+Hence $x\in A_{n}$ for all even $n$ with $n\geq N$, and hence $x\in\limsup_{n}A_{n}$.
+Similarly, when $x\in B$ and $x_{1}<0$, $x\in A_{n}$ for all odd
+$n$ with $n\geq N$, and hence $x\in\limsup_{n}A_{n}$. These imply
+that $D\cup B\subset\limsup_{n}A_{n}$. Now, suppose $x\notin D\cup B$.
+Then $\|x\|_{2}>1$ or $x=(0,\pm1)$. When $\|x\|_{2}>1$, choose
+$N$ large enough so that $\frac{1}{N}<1-\|x\|_{2}$. Then for all
+$n\geq N$, 
+\begin{align*}
+\left\Vert x-\left(\frac{(-1)^{n}}{n},0\right)\right\Vert _{2} & \geq\left\Vert x\right\Vert _{2}-\left\Vert \left(\frac{(-1)^{n}}{n},0\right)\right\Vert _{2}\\
+& =\left\Vert x\right\Vert _{2}-\frac{1}{n}\geq\left\Vert x\right\Vert _{2}-\frac{1}{N}>1.
+\end{align*}
+Then $x\notin A_{n}$ for all $n$ with $n\geq N$, and hence $x\notin\limsup_{n}A_{n}$.
+Also, when $x=(0,\pm1)$, then for all $n$,
+\[
+\left\Vert x-\left(\frac{(-1)^{n}}{n},0\right)\right\Vert _{2}=\left\Vert \left(-\frac{(-1)^{n}}{n},\pm1\right)\right\Vert _{2}=\sqrt{1+\frac{1}{n^{2}}}>1,
+\]
+Then $x\notin A_{n}$ for all $n$, and hence $x\notin\limsup_{n}A_{n}$.
+These show $\limsup_{n}A_{n}\subset D\cup B$, and hence 
+\[
+\limsup_{n}A_{n}=D\cup B.
+\]
+\color{black}
+
+
+\end{enumerate}
+\item Let $X_1,X_2,\ldots$ be a sequence of 0-1 Bernoulli random variables such $X_n \sim \mathrm{Bernoulli}(1/n^2)$. Let $X = \sum_{n=1}^\infty X_n$. What is $\mathbb{P}(X < \infty)$?\\
+\color{blue}
+Use Borel Cantelli's first Lemma. Define the events $A_n =  \{ X_n = 1\}$, $n=1,2,\ldots$. Then, $\sum_{n=1}^\infty \mathbb{P}(A_n) = \sum_{n=1}^\infty 1/n^2 = \frac{\pi^2}{6} < \infty$. So $\mathbb{P}(\limsup A_n) = 0$. Now,  $\limsup A_n = \mathbb{P}(X = \infty)$. 
+\color{black}
+
+\item Recall that Borel-Cantelli's Second Lemma says that if $\{ A_n \}$ is a sequence of {\it independent}\footnote{meaning that the probability of any finite intersection of events in the sequence is equal to the product of their respective probabilities.} events such that $\sum_n \mathbb{P}(A_n) = \infty$ then $\mathbb{P}(\limsup_n A_n)=1$. You might wonder whether the requirement of independence is needed. The answer is yes. Find an example in which all the conditions of the lemma are met except for independence and the conclusion is false.
+
+\item Ferguson, problem 5, page 12.\\
+\color{blue}
+$X_n \stackrel{p}{\to} 0$ for all values of $\alpha$. By Borel-Cantelli's Second Lemma, if $\alpha \geq 1$ then, for any $\epsilon > 0$ $|X_n| > \epsilon$ infinitely often with probability $1$, by independence and because $\sum_n \frac{1}{n} \sim \log n \to \infty$. On the other hand, when $\alpha < 1$, Borel-Cantelli's First Lemma will imply that the probability that $|X_n| > \epsilon$ infinitely often is equal to $0$ for any $\epsilon$. Therefore, $X_n \stackrel{w.p. \; 1}{\to} 0$ if and only if $\alpha < 1$.  Finally, by direct calculation
+\[
+\mathbb{E}[|X_n|^p] = \frac{n^{\alpha p}}{n}  \to 0
+\]
+if and only if $\alpha \; p < 1$.
+\color{black}
+
+%\end{enumerate}
+\item Prova Markov's inequality: if $X$ is a non-negative random variable, then for any $\epsilon > 0$
+\[
+\mathbb{P} ( X \geq \epsilon) \leq \frac{\mathbb{E}[X]}{\epsilon}.
+\]
+Markov's inequality is almost always a loose upper bound, but there are rare cases when it is sharp. Find an example in which it holds exactly. {\it Hint: take $X$ to be the indicator function of a set and select the right $\epsilon$}.\\
+%Markov's inequality, of course, implies, Chebysehv's inequality: if $X$ has mean $\mu$ and variance $\sigma^2$
+%\[
+%\mathbb{P} ( |X - \mu| > \epsilon) \leq \frac{\mathbb{V}[X]}{\epsilon^2}.
+%\]
+Prove the Paley–Zygmund inequality, a reverse Markov inequality of sort: if $X$ is a non-negative random variable with two or more moments, then, for any $\alpha \in (0,1)$,
+\[
+\mathbb{P} ( X \geq \alpha \mathbb{E}[X]) \geq (1 - \alpha)^2 \frac{\mathbb{E}[^2X]}{\mathbb{E}[X^2]}.
+\] 
+%\item If $\lim\sup_n A_n = \lim\inf_n A_n = A$, then
+%  $\lim_{n\rightarrow\infty}\mu(A_n)=\mu(A)$ for any finite measure $\mu$
+%  on $(\Omega,\mathcal F)$. 
+
+\color{blue}
+We can write
+\begin{align*}
+X & = X \mathbbm{1}\{X < \theta \mathbb{E}[X]\} + X \mathbbm{1}\{X \geq \theta \mathbb{E}[X]\}\\
+& \stackrel{(i)}{\leq} \theta \mathbb{E}[X] + \sqrt{\mathbb{E}[X^2] \mathbb{P}(X \geq \theta E[X])},
+\end{align*}
+where in {\it (i)} we have used Cauchy-Schwartz inequality to bound the second term.
+So, 
+\[
+\mathbb{E}[X] (1 - \theta) \leq \sqrt{\mathbb{E}[X^2] \mathbb{P}(X \geq \theta E[X])}. 
+\]
+The result follow from taking the square.
+\color{black}
+
+\item Let $X_1,\ldots,X_n$ {\it i.i.d.} univariate random variables with common distribution function $F_X$. Given $\alpha \in (0,1)$, use the DKW inequality given in class to construct a $1 - \alpha$ confidence band for $F_X$, a pair of random functions (random because dependent on $X_1,\ldots,X_n$), say $\hat{F}^{\mathrm{lower}}_\alpha$ and $\hat{F}^{\mathrm{upper}}_\alpha$, such that
+\[
+\mathbb{P} \left( \hat{F}^{\mathrm{lower}}_\alpha(x) \leq F_X(x) \leq \hat{F}^{\mathrm{upper}}_\alpha(x), \forall x \in \mathbb{R}  \right) \geq 1 - \alpha.
+ \]
+\color{blue}
+The DKW inequality states that 
+\[
+\mathbb{P} \left( \sup_x |F_X(x) - \hat{F}_n(x) | > \epsilon \right) \leq 2 \exp\{ -2n\epsilon^2\}, \quad \forall \epsilon > 0. 
+\]
+Set the right hand side of the above inequality to $\alpha$ and solve for $\epsilon$ to conclude that 
+\[
+\hat{F}^{\mathrm{lower}}_\alpha(x) = \min \left\{ 0 , \hat{F}_n(x) - \sqrt{\frac{\log 2/\alpha}{2 n}} \right\}, \quad x \in \mathbb{R}
+\]
+and
+\[
+\hat{F}^{\mathrm{upper}}_\alpha(x) = \max \left\{ 1 , \hat{F}_n(x) + \sqrt{\frac{\log 2/\alpha}{2 n}} \right\}, \quad x \in \mathbb{R}.
+\]
+\color{black}
+
+
+
+
+
+\item {\bf Joint and marginal convergence.} Below, $\{ X_n \}$ is a sequence of random vectors in $\mathbb{R}^d$ and $X$ another random vector in $\mathbb{R}^d$.
+ \begin{enumerate}
+ \item Show that $X_n \stackrel{p}{\rightarrow} X$ if and only if $X_n(j) \stackrel{p}{\rightarrow} X(j)$ for all $j=1,\ldots,d$. {\it Note: the same is true about convergence with probability one}.\\
+\color{blue}
+
+By definition, $X_n \stackrel{p}{\rightarrow} X$ if and only if, for each $\epsilon > 0$, 
+\[
+\mathbb{P}( \| X_n - X \| \geq \epsilon ) %= \mathbb{P}( \| X_n - X \|^2 \geq \epsilon^2 ) = \mathbb{P}( \sum_{j=1}^d (X_n(j) - X(j))^2 \geq \epsilon )
+\to 0,
+\]
+or, equivalently,
+\[
+\mathbb{P}( \| X_n - X \| < \epsilon ) %= \mathbb{P}( \| X_n - X \|^2 \geq \epsilon^2 ) = \mathbb{P}( \sum_{j=1}^d (X_n(j) - X(j))^2 \geq \epsilon )
+\to 1,
+\]
+which implies, since $\max_j | X_n(j) - X(j)| \leq \| X_n - X \| $, that  $\mathbb{P}( \max_j | X_n(j) - X(j)| < \epsilon ) \to 1$. In turn, this implies that, for any $j$, $X_n(j) \stackrel{p}{\rightarrow} X(j)$. Conversely,  if, for any $\epsilon > 0$, $\mathbb{P}( | X_n(j) - X(j)| \geq \epsilon) \to 0 $ for all $j$, then  $\mathbb{P}( \| X_n - X \| \geq d \epsilon ) \leq \sum_{j=1}^d \mathbb{P}(| X_n(j) - X(j)| \geq \epsilon ) \to 0$. Since $\epsilon$ is arbitrary, $X_n \stackrel{p}{\rightarrow} X$.
+
+\color{black}
+
+
+ \item Show that if $X_n \stackrel{d}{\rightarrow} X$, then $X_n(j) \stackrel{d}{\rightarrow} X(j)$ for all $j=1,\ldots,d$.\\
+\color{blue}
+There is more than one way to prove this. One could use the definition of convergence in distribution and a limiting argument. A shorter way is to use characteristic functions. Let $\phi_{X_n}$, $\phi_X$, $\phi_{X_n(j)}$, $\phi_{X(j)}$ be the characteristics functions of $X_n$, $X$, $X_n(j)$ and $X(j)$ respectively. Then, if $X_n \stackrel{d}{\rightarrow} X$, $\phi_{X_n}(t) \to \phi_X(t)$ for all $t \in \mathbb{R}^d$. In particular, this is true for the vector $t_x = (t_1,\ldots,t_d)$ such that $t_i = 0$ if $i \neq j$ and $t_j = x$ if $i=j$, where $x$ is any real number. As a result, we get that, for any $x \in \mathbb{R}$,
+\[
+\phi_{X_n(j)}(x) =  \phi_{X_n}(t_x) \to \phi_X(t_x) = \phi_{X(j)}(x)
+\]
+\color{black}
+ \item In class, we looked at this example in $d=2$. Set $U \sim \mathrm{Uniform}(0,1)$ and let $X_n = U$ for all $n$ and 
+\[
+Y_n = \left\{ \begin{array}{ll}
+ U & n \text{ odd},\\
+ 1 - U & n \text{ even}.
+ \end{array}
+ \right.	
+\]
+Then, $X_n  \stackrel{d}{\rightarrow} U$ and $X_n  \stackrel{d}{\rightarrow} U$. In class, I claimed that 
+\[
+\left[ \begin{array}{c}
+ X_n\\
+ Y_n	
+ \end{array}
+\right]
+\]
+does not converge in distribution (in fact, in any meaningful sense). Prove the claim.
+
+
+\color{blue}
+One way to prove the claim is to show that the random vector $\left[ \begin{array}{c}
+ X_n\\
+ Y_n	
+ \end{array}
+\right]
+$ take values on the line segment on the plane joining $(0,0)$ to $(1,1)$ for all odd $n$ and on the line segment joining $(1,0)$ to $(0,1)$ for all odd $n$. A simpler way is to use the Cramer-Wald device: the characteristic function of the vector  evaluated at the point $\left[ \begin{array}{c}
+ 1\\
+ 1	
+ \end{array}
+\right]$ is equal to $e^{i}$ when $n$ is even and to the characteristic function of $2U$ at $1$ when $n$ is odd. As a result, it does not converge.
+
+\color{black}
+ \end{enumerate}
+ 
+
+ 
+ \item Show that the c.d.f. of a random variable can have at most countably many points of discontinuity.\\
+\color{blue}
+For every point of discontinuity, say $x$, of the c.d.f. $F$, the  interval  $(F(x-), F(x))$ is not empty, by definition. Take any rational number in this interval. Thus, for every point of discontinuity of $F$, we can find a distinct rational. Since the set of rationals is countable, the set of discontinuity points of $F$ can be put in a one-to-one correspondence with a subset of the set of rational numbers, which is countable. 
+\color{black}
+ \item For each $n$, let $X_n$ a random variable uniformly distributed on $\left\{\frac{1}{n}, \frac{2}{n}, \ldots, \frac{n-1}{n}, 1 \right\}$. Show that $X_n$ converges on distribution to $U \sim \mathrm{Uniform}(0,1)$. Let $A$ be the set of all rational numbers in $[0,1]$. Then $\mathbb{P}(X_n \in A) = 1$ for all $n$ but $\mathbb{P}(X \in A) = 0$. Show that this does not violate condition {\it (v)} of the Portmanteau theorem, as stated in the lecture notes.\\
+ \color{blue}
+ $X_n$ converges on distribution to $U \sim \mathrm{Uniform}(0,1)$ because the c.d.f of $X_n$ is
+ \[
+\mathbb{F}_{X_n}(x) = \left\{ \begin{array}{cc}
+ 	0 & x < 0\\
+ 	\frac{\lfloor n x \rfloor }{n} & x \in [0,1]\\
+ 	1 & x >1
+ 	 \end{array} \right.
+ 	\to F_{U}(x) = \left\{ \begin{array}{cc}
+ 	0 & x < 0\\
+ x & x \in [0,1]\\
+ 	1 & x >1
+ \end{array} \right.
+ \]
+ for all $x \in \mathbb{R}$. In this example, condition {\it (v)} of the Portmanteau theorem is not violated because $A$ is dense in $[0,1]$, so $\partial{A} = [0,1] \setminus \mathbb{Q}$. Therefore, since $\mathbb{P}( U \in \mathbb{Q}) = 0$,
+ \[
+ \mathbb{P}( U \in \partial{A}) = \mathbb{P}( U \in  [0,1] \setminus \mathbb{Q})
+ = \mathbb{P}( U \in [0,1]) = 1 \neq 0.
+ \]
+ \color{black}
+
+  \end{enumerate}
+
+\end{document}
+

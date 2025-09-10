@@ -1,0 +1,179 @@
+\documentclass[12pt]{article}
+
+\textheight=8.5in
+\textwidth=6.5in
+\topmargin=-36pt
+\parindent=0in
+\oddsidemargin=0pt\evensidemargin=0pt
+\newcommand{\F}{{\cal F}}
+\newcommand{\lni}{\lim_{n\rightarrow\infty}}
+
+\usepackage{amsmath,amssymb}
+\usepackage{bbm}
+\usepackage{hyperref}
+\hypersetup{backref, colorlinks=true, citecolor=blue, linkcolor=blue, urlcolor=blue}
+\begin{document}
+
+\begin{center}
+{\bf SDS 391-3, Fall 2025 \\
+ Homework 1}\\
+ \vspace{5pt}
+ Due Sept 24, by midnight on \href{https://canvas.utexas.edu/index.html}{Canvas}.
+\end{center}
+
+%\vspace{.2in}
+%
+%Reading assignment: read the proof of $\pi-\lambda$ theorem.
+%
+
+
+
+\begin{enumerate}
+%\item Let $\{x_n\}$ be a sequence of numbers. Describe the mathematical statements: $x_n = \Omega(1)$, $x_n = \omega(1)$ and $x_n = \Theta(1)$.
+
+
+%\color{blue}
+%$x_n = \Omega(1)$ is equivalent to the statement that $\inf_n |x_n| \geq C$ for some $C>0$.  $x_n = \omega(1)$ is equivalent to the statement that, for any $M>0$ (arbitrarily large) there exists a $N \in \mathbb{N}$ (which depends on $M$) such that $|x_n| \geq M$ for all $n \geq N$. $x_n = \Theta(1)$  is equivalent to the statement that there exists a $C \geq 1$ such that $\frac{1}{C} \leq |x_n| \leq C$.
+%\color{black}
+
+\item {\bf Limit superior and limit inferior.}
+\begin{enumerate}
+\item Let $\{A_n\}$ be a sequence of events (an event is a collection of outcomes). Argue that an outcome belongs to $\limsup_n A_n$ if and only if it belongs to infinitely many events $A_n$'s and that it belongs to $\liminf_n A_n$ if and only if there exists an integer $N$ such that the outcome belongs to all the events $A_n$ with $n \geq N$ (so it belongs to the $A_n$'s eventually). Conclude that $\liminf_n A_n \subseteq \limsup_n A_n$.\\
+%\color{blue}
+%Recalling the definition $\limsup_n A_n = \cap_{n=1}^\infty \cup_{m=n}^\infty A_m$, if a point $x$ belongs to $\limsup_n A_n$ then, for every $n$, it belongs to the set $\cup_{m=n}^\infty A_m$. Equivalently, for every $n$, there exists a $k \geq n$ such that $x \in A_k$. That is $x$ belongs to infinitely many events $A_n$'s. Similarly, since $\liminf_n A_n = \cup_{n=1}^\infty \cap_{m=n}^\infty A_m$, if $x$ belongs to $\liminf_n A_n$, there exists a $N$ such that $x$ belongs to each $A_m$ with $m \geq N$.
+\color{black}
+%\item  Consider the same setting above. De Morgan's Laws state that $\left(\cup_n A\right)^c = \cap_n A_n^c$ and $\left(\cap_n A\right)^c = \cup_n A_n^c$, where $A^c$ is the complement of the set $A$. Use De Morgan's law to show that $\left( \liminf_n A_n \right)^c = \limsup_n A^c_n$.\\
+%\color{blue}
+%This follows directly from DeMorgan's Law.
+\color{black}
+\item Let $A_n$ be $(-1/n,1]$ if $n$ is odd and $(-1,1/n]$ if $n$ is even. Find $\limsup_n A_n$ and $\liminf_n A_n$.\\
+%\color{blue} 
+%Note that for any $k\in\mathbb{N}$, $A_{k}\cup A_{k+1}=(-1,1]$.
+%Hence $\bigcup_{k=n}^{\infty}A_{k}=(-1,1]$ for all $n\in\mathbb{N}$,
+%and hence 
+%\[
+%\limsup_{n}A_{n}=\bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}A_{k}=\bigcap_{n=1}^{\infty}(-1,1]=(-1,1].
+%\]
+%Also, note that for any $m\in\mathbb{N}$, $\bigcap_{k=m}^{\infty}A_{2k-1}=[0,1]$
+%and $\bigcap_{k=m}^{\infty}A_{2k}=(-1,0]$. Hence $\bigcap_{k=n}^{\infty}A_{k}=\{0\}$
+%for any $n\in\mathbb{N}$, and hence 
+%\[
+%\liminf_{n}A_{n}=\bigcup_{n=1}^{\infty}\bigcap_{k=n}^{\infty}A_{k}=\bigcup_{n=1}^{\infty}\{0\}=\{0\}.
+%\]
+\color{black}
+
+\item {\bf On the relationship between $\liminf$ and $\limsup$ of events and numbers.} Recall that for a sequence of numbers $\{ x_n\}_{n=1,2\ldots}$,
+\[
+\liminf_n x_n = \inf_{n \geq 1} \sup_{m \geq n} x_m \quad \text{and} \quad \limsup_n x_n = \sup_{n \geq 1} \inf_{m \geq n} x_m
+\]
+For an event $A_n$, denote with $I_{A_n}$ the $0-1$ random varibale that is $1$ if $A_n$ takes place and $0$ otherwise. Show that
+\[
+I_{\limsup_n A_n} = \limsup_n I_{A_n} \quad \text{and} \quad I_{\liminf_n A_n} = \liminf_n I_{A_n}
+\]
+
+
+\item {\bf Bonus Problem}. Let $A_n$ the interior of the ball in $\mathbb{R}^2$ with unit radius and center $\left(\frac{{(-1)}^n}{n},0\right)$.  Find $\limsup_n A_n$ and $\liminf_n A_n$.
+
+\end{enumerate}
+%\item Let $X_1,X_2,\ldots$ be a sequence of 0-1 Bernoulli random variables such $X_n \sim \mathrm{Bernoulli}(1/n^2)$. Let $X = \sum_{n=1}^\infty X_n$. What is $\mathbb{P}(X < \infty)$?\\
+%\color{blue}
+%Use Borel Cantelli's first Lemma. Define the events $A_n =  \{ X_n = 1\}$, $n=1,2,\ldots$. Then, $\sum_{n=1}^\infty \mathbb{P}(A_n) = \sum_{n=1}^\infty 1/n^2 = \frac{\pi^2}{6} < \infty$. So $\mathbb{P}(\limsup A_n) = 0$. Now,  $\limsup A_n = \mathbb{P}(X = \infty)$. 
+
+\item {\bf On the WLLN for dependent variables}.
+\begin{enumerate}
+\item Suppose that $X_1,X_2,\ldots,X_n$ is a finite sequence of centered\footnote{the arguments can be modified to allow for non-zero means, but let's not do that.} random variables  such that $\mathrm{Var}[X_n] \leq \sigma^2$ for all $n$ and $\mathrm{Cov}[X_i,X_j] \geq c>0$ for some $c >0$ and all $i$ and $j$. Show that,  
+\[
+ \lim_n \mathbb{P}(|\overline{X}_n| \geq \epsilon ) \neq 0,
+\]
+for all sufficiently small $\epsilon > 0$. Therefore, the WLLN does not hold.\\
+\item Now suppose instead that the variables are $m$-dependent: $X_i$ and $X_j$ are independent provided that $|i - j| > m$ (they may or may not be independent otherwise). Also assume that $\mathrm{Cov}[X_i,X_j] \leq c$ for some $c$ and all $i$ and $j$ with $|i - j | \leq m$. Show that if $m$ is fixed, then 
+\begin{equation}\label{eq:uno}
+ \lim_n \mathbb{P}(|\overline{X}_n| \geq \epsilon ) = 0,
+\end{equation}
+for all $\epsilon >0$.
+ \item Now let's allow $m$ to grow with $n$ (that is, for each $n$, $X_1,X_2,\ldots,X_n$ is $m$-dependent, where $m$ is a function of $n$). Show that, as long as $m = o(n)$, \eqref{eq:uno} still holds true.
+\end{enumerate}
+\color{black}
+
+\item Recall that Borel-Cantelli's Second Lemma says that if $\{ A_n \}$ is a sequence of {\it independent}\footnote{meaning that the probability of any finite intersection of events in the sequence is equal to the product of their respective probabilities.} events such that $\sum_n \mathbb{P}(A_n) = \infty$ then $\mathbb{P}(\limsup_n A_n)=1$. You might wonder whether the requirement of independence is needed. The answer is yes. Find an example in which all the conditions of the lemma are met except for independence and the conclusion is false.
+
+\item Ferguson, problem 5, page 12.\\
+
+\color{black}
+
+%\end{enumerate}
+\item Prova Markov's inequality: if $X$ is a non-negative random variable, then for any $\epsilon > 0$
+\[
+\mathbb{P} ( X \geq \epsilon) \leq \frac{\mathbb{E}[X]}{\epsilon}.
+\]
+Markov's inequality is almost always a loose upper bound, but there are rare cases when it is sharp. Find an example in which it holds exactly. {\it Hint: take $X$ to be the indicator function of a set and select the right $\epsilon$}.\\
+%Markov's inequality, of course, implies, Chebysehv's inequality: if $X$ has mean $\mu$ and variance $\sigma^2$
+%\[
+%\mathbb{P} ( |X - \mu| > \epsilon) \leq \frac{\mathbb{V}[X]}{\epsilon^2}.
+%\]
+Prove the Paley–Zygmund inequality, a reverse Markov inequality of sort: if $X$ is a non-negative random variable with two or more moments, then, for any $\alpha \in (0,1)$,
+\[
+\mathbb{P} ( X \geq \alpha \mathbb{E}[X]) \geq (1 - \alpha)^2 \frac{\mathbb{E}[^2X]}{\mathbb{E}[X^2]}.
+\] 
+%\item If $\lim\sup_n A_n = \lim\inf_n A_n = A$, then
+%  $\lim_{n\rightarrow\infty}\mu(A_n)=\mu(A)$ for any finite measure $\mu$
+%  on $(\Omega,\mathcal F)$. 
+
+
+\color{black}
+
+\item Let $X_1,\ldots,X_n$ {\it i.i.d.} univariate random variables with common distribution function $F_X$. Given $\alpha \in (0,1)$, use the DKW inequality given in class to construct a $1 - \alpha$ confidence band for $F_X$, a pair of random functions (random because dependent on $X_1,\ldots,X_n$), say $\hat{F}^{\mathrm{lower}}_\alpha$ and $\hat{F}^{\mathrm{upper}}_\alpha$, such that
+\[
+\mathbb{P} \left( \hat{F}^{\mathrm{lower}}_\alpha(x) \leq F_X(x) \leq \hat{F}^{\mathrm{upper}}_\alpha(x), \forall x \in \mathbb{R}  \right) \geq 1 - \alpha.
+ \]
+\color{black}
+
+
+
+
+
+\item {\bf Joint and marginal convergence.} Below, $\{ X_n \}$ is a sequence of random vectors in $\mathbb{R}^d$ and $X$ another random vector in $\mathbb{R}^d$.
+ \begin{enumerate}
+ \item Show that $X_n \stackrel{p}{\rightarrow} X$ if and only if $X_n(j) \stackrel{p}{\rightarrow} X(j)$ for all $j=1,\ldots,d$. {\it Note: the same is true about convergence with probability one}.\\
+
+
+\color{black}
+
+
+ \item Show that if $X_n \stackrel{d}{\rightarrow} X$, then $X_n(j) \stackrel{d}{\rightarrow} X(j)$ for all $j=1,\ldots,d$.\\
+\color{black}
+ \item In class, we looked at this example in $d=2$. Set $U \sim \mathrm{Uniform}(0,1)$ and let $X_n = U$ for all $n$ and 
+\[
+Y_n = \left\{ \begin{array}{ll}
+ U & n \text{ odd},\\
+ 1 - U & n \text{ even}.
+ \end{array}
+ \right.	
+\]
+Then, $X_n  \stackrel{d}{\rightarrow} U$ and $X_n  \stackrel{d}{\rightarrow} U$. In class, I claimed that 
+\[
+\left[ \begin{array}{c}
+ X_n\\
+ Y_n	
+ \end{array}
+\right]
+\]
+does not converge in distribution (in fact, in any meaningful sense). Prove the claim.
+
+
+
+
+\color{black}
+ \end{enumerate}
+ 
+
+ 
+ \item Show that the c.d.f. of a random variable can have at most countably many points of discontinuity.\\
+\color{black}
+ \item For each $n$, let $X_n$ a random variable uniformly distributed on $\left\{\frac{1}{n}, \frac{2}{n}, \ldots, \frac{n-1}{n}, 1 \right\}$. Show that $X_n$ converges on distribution to $U \sim \mathrm{Uniform}(0,1)$. Let $A$ be the set of all rational numbers in $[0,1]$. Then $\mathbb{P}(X_n \in A) = 1$ for all $n$ but $\mathbb{P}(X \in A) = 0$. Show that this does not violate condition {\it (v)} of the Portmanteau theorem, as stated in the lecture notes.\\
+  \color{black}
+
+  \end{enumerate}
+
+\end{document}
+
