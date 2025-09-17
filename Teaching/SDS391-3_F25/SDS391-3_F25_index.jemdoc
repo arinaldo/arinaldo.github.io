@@ -57,3 +57,6 @@ References:
 
 == Thursday, September 11
 [https://arinaldo.github.io/Teaching/SDS391-3_F25/Class_Notes/Lecture_04_Sep11.pdf Lecture 4]: Proof of Glivenko Cantelli Theorem and DKW inequality. Lp spaces and convergence.
+
+== Tuesday, September 16
+[https://arinaldo.github.io/Teaching/SDS391-3_F25/Class_Notes/Lecture_05_Sep16.pdf Lecture 5]: Lp convergence, Minkowski, Holder and Jensen inequalities. Relations between Lp convergence and convergence in probability and with probability one. Convergence in distribution for univariate random variables. C.d.f.'s in multivariate settings.
