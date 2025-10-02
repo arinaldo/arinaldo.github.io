@@ -75,3 +75,14 @@ Uniqueness of stochastic limits. Portmantreau Theorem (see, e.g, chapter 2 in va
 == Thursday, September 25
 [https://arinaldo.github.io/Teaching/SDS391-3_F25/Class_Notes/Lecture_08_Sep25.pdf Lecture 8]: 
  Characteristics functions and Continuity Theorem, Cramer-Wald device. I suggest reading Chapter 3 of Ferguson's book (in particuar, Theorem 3(e) has a neat proof). For a reference to multivariate Taylor series expansions, see, e.g., Advanced Calculus by G. Folland, available [https://sites.math.washington.edu//~folland/AdvCalc24.pdf here].
+
+
+
+== Tuesday, September 30
+[https://arinaldo.github.io/Teaching/SDS391-3_F25/Class_Notes/Lecture_09_Sep30.pdf Lecture 9]: 
+Slutsky's theorem, more on convergence in distribution. Big-oh and little-oh notation. Prohorov's theorem about tightness of stochastic sequences.
+
+
+== Thursday, October 2
+[https://arinaldo.github.io/Teaching/SDS391-3_F25/Class_Notes/Lecture_10_Oct02.pdf Lecture 10]: 
+LT for i.i.d. variables using characteristic functions. Triangular arrays, Lindeberg Feller and Lyapunov conditions. 
