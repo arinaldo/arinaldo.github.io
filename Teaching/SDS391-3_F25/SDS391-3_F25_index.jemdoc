@@ -137,3 +137,7 @@ Linear regression modeling: inference vs prediction. Projection parameters and p
 HIghly recommended reading:
 Assumption lean regression. Highly recommended reading:
 - Buja, A., Brown, L., Berk, R., George, E., Pitkin, E., Traskin, M., Zhang, K., Zhao, L. (2019). Models as Approximations I: Consequences Illustrated with Linear Regression, Statistical Science, 34(4), 523-544.
+
+== Thursday, October 30
+[https://arinaldo.github.io/Teaching/SDS391-3_F25/Class_Notes/Lecture_18_Oct30.pdf Lecture 18]: 
+Risk decomposition and pseudo inverse.
