@@ -162,3 +162,12 @@ Minimax lower bound for OLS. A great reference (for the random design settings) 
 == Thursday, November 13
 [https://arinaldo.github.io/Teaching/SDS391-3_F25/Class_Notes/Lecture_22_Nov13.pdf Lecture 22]: 
 Minimax lower bound for OLS (cont'd). Statistical inference for the linear regression parameters.
+
+== Tuesday, November 18
+[https://arinaldo.github.io/Teaching/SDS391-3_F25/Class_Notes/Lecture_23_Nov18.pdf Lecture 23]: 
+Consistency and asymptotic normality of the OLS in fixed design settings.
+
+== Thursday, November 20
+[https://arinaldo.github.io/Teaching/SDS391-3_F25/Class_Notes/Lecture_24_Nov20.pdf Lecture 24]: 
+Random design. Risk formula for the OLS. Projection parameters.
+
